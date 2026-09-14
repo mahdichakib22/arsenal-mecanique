@@ -358,6 +358,50 @@
       border-bottom-color: var(--gold-400);
     }
 
+    /* CONTACT CARD */
+    .contact-card {
+      background: var(--navy-800);
+      border: 1px solid var(--navy-700);
+      border-radius: 12px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 1.5em;
+    }
+
+    @media (min-width: 560px) {
+      .contact-card {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--gold-300);
+      font-size: 0.95rem;
+    }
+
+    /* LEGAL SECTION */
+    .legal-content h4 {
+      color: var(--gold-300);
+      font-size: 0.98rem;
+      margin-top: 1.4em;
+      margin-bottom: 4px;
+    }
+
+    .legal-content p {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--ink-400);
+    }
+
     /* STORY SECTION */
     .story-card {
       background: var(--navy-800);
@@ -875,6 +919,11 @@
         <span class="lang fr">Accompagnement VIP</span>
         <span class="lang en">VIP Coaching</span>
       </a>
+      <a href="#contact">Contact</a>
+      <a href="#mentions-legales">
+        <span class="lang fr">Mentions Légales</span>
+        <span class="lang en">Legal Notice</span>
+      </a>
     </div>
   </nav>
 
@@ -1378,7 +1427,79 @@
       </div>
     </section>
 
+    <!-- SECTION CONTACT -->
+    <section id="contact" class="section">
+      <div class="wrap">
+        <h2 class="lang fr">Contact &amp; Support</h2>
+        <h2 class="lang en">Contact &amp; Support</h2>
+
+        <p class="lang fr">Une question sur la formation ou l'accompagnement VIP ? Besoin d'informations complémentaires avant de vous lancer ? Contactez-moi directement.</p>
+        <p class="lang en">Have a question about the Masterclass or VIP Coaching? Need more information before getting started? Feel free to reach out directly.</p>
+
+        <div class="contact-card">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <div>
+              <strong>Email Direct</strong>
+              <p style="margin:0;"><a href="mailto:contact.arsenalmecanique@gmail.com">contact.arsenalmecanique@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <div>
+              <strong>Discord &amp; Communauté</strong>
+              <p style="margin:0;"><a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank">Rejoindre l'Accompagnement VIP</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION MENTIONS LÉGALES -->
+    <section id="mentions-legales" class="section">
+      <div class="wrap">
+        <h2 class="lang fr">Mentions Légales &amp; Avertissement sur les Risques</h2>
+        <h2 class="lang en">Legal Notice &amp; Risk Disclaimer</h2>
+
+        <div class="legal-content lang fr">
+          <h4>1. Éditeur du site</h4>
+          <p>Le présent site "L'Arsenal Mécanique" est édité par M. Chakib (Trader indépendant &amp; Fondateur).</p>
+
+          <h4>2. Propriété intellectuelle</h4>
+          <p>L'ensemble des contenus (textes, stratégies, graphiques et supports pédagogiques) est protégé par le droit d'auteur. Toute reproduction ou redistribution non autorisée est strictement interdite.</p>
+
+          <h4>3. Avertissement sur les Risques (Trading &amp; Prop Firms)</h4>
+          <p>Le trading d'instruments financiers (Futures, Forex, Indices) comporte un <strong>niveau de risque très élevé</strong> et peut entraîner la perte intégrale du capital engagé. Les résultats et performances présentés sur ce site ne garantissent en aucun cas les performances futures.</p>
+          <p>Les contenus et formations proposés sont exclusivement à but <strong>éducatif et pédagogique</strong>. Ils ne constituent pas des conseils en investissement financier, ni des incitations à trader.</p>
+
+          <h4>4. Paiements &amp; Données personnelles</h4>
+          <p>Aucune donnée personnelle sensible n'est enregistrée à votre insu. Les transactions bancaires sont traitées de manière 100% sécurisée via nos partenaires bancaires certifiés (Wise / Stripe).</p>
+        </div>
+
+        <div class="legal-content lang en">
+          <h4>1. Site Publisher</h4>
+          <p>This website "L'Arsenal Mécanique" is published by M. Chakib (Independent Trader &amp; Founder).</p>
+
+          <h4>2. Intellectual Property</h4>
+          <p>All content (texts, strategies, graphics, and training material) is protected under copyright law. Any unauthorized copy or redistribution is strictly prohibited.</p>
+
+          <h4>3. Risk Disclaimer (Trading &amp; Prop Firms)</h4>
+          <p>Trading financial instruments (Futures, Forex, Indices) involves a <strong>high level of risk</strong> and can result in the complete loss of your capital. Past performance shown on this site does not guarantee future results.</p>
+          <p>All training material and content provided are strictly for <strong>educational and informational purposes</strong>. They do not constitute financial investment advice or trading recommendations.</p>
+
+          <h4>4. Payments &amp; Privacy</h4>
+          <p>No personal data is collected without consent. All transactions are securely processed through certified third-party payment providers (Wise / Stripe).</p>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <footer style="padding: 30px 0; border-top: 1px solid var(--navy-700); text-align: center; font-size: 0.85rem; color: var(--ink-400);">
+    <div class="wrap">
+      <p style="margin: 0;">&copy; 2026 L'Arsenal Mécanique by M.Chakib. Tous droits réservés.</p>
+    </div>
+  </footer>
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="">
