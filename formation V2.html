@@ -171,26 +171,26 @@
       border-color: var(--gold-400);
     }
 
-    .lang.en {
-      display: none !important;
-    }
-
-    body.en-active .lang.fr {
-      display: none !important;
-    }
-
-    body.en-active .lang.en {
-      display: block;
-    }
-
+    /* Default (FR active): Hide EN elements */
+    .lang.en,
     span.lang.en {
       display: none !important;
     }
+    .lang.fr {
+      display: block;
+    }
+    span.lang.fr {
+      display: inline;
+    }
 
+    /* EN active: Hide FR elements, Show EN elements */
+    body.en-active .lang.fr,
     body.en-active span.lang.fr {
       display: none !important;
     }
-
+    body.en-active .lang.en {
+      display: block !important;
+    }
     body.en-active span.lang.en {
       display: inline !important;
     }
@@ -852,19 +852,29 @@
 
   <nav class="toc">
     <div class="toc-inner">
-      <a href="#histoire" class="lang fr">Mon Histoire</a>
-      <a href="#histoire" class="lang en">My Story</a>
-      <a href="#bases" class="lang fr">Bases</a>
-      <a href="#bases" class="lang en">Basics</a>
+      <a href="#histoire">
+        <span class="lang fr">Mon Histoire</span>
+        <span class="lang en">My Story</span>
+      </a>
+      <a href="#bases">
+        <span class="lang fr">Bases</span>
+        <span class="lang en">Basics</span>
+      </a>
       <a href="#sessions">Sessions</a>
-      <a href="#strat1" class="lang fr">Stratégie #1</a>
-      <a href="#strat1" class="lang en">Strategy #1</a>
-      <a href="#strat2" class="lang fr">Stratégie #2</a>
-      <a href="#strat2" class="lang en">Strategy #2</a>
+      <a href="#strat1">
+        <span class="lang fr">Stratégie #1</span>
+        <span class="lang en">Strategy #1</span>
+      </a>
+      <a href="#strat2">
+        <span class="lang fr">Stratégie #2</span>
+        <span class="lang en">Strategy #2</span>
+      </a>
       <a href="#payouts">Payouts</a>
       <a href="#risk">Risk Management</a>
-      <a href="#offres" class="lang fr">Accompagnement VIP</a>
-      <a href="#offres" class="lang en">VIP Coaching</a>
+      <a href="#offres">
+        <span class="lang fr">Accompagnement VIP</span>
+        <span class="lang en">VIP Coaching</span>
+      </a>
     </div>
   </nav>
 
