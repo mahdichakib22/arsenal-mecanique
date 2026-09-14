@@ -820,7 +820,44 @@
       font-style: italic;
       font-size: 1.3rem;
       color: var(--gold-300);
-      margin: 0;
+    /* SCROLL TO TOP BUTTON */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(23, 30, 46, 0.85);
+      border: 1px solid var(--gold-400);
+      color: var(--gold-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .scroll-top-btn:hover {
+      background: var(--gold-400);
+      color: var(--navy-950);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(227, 180, 84, 0.4);
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top-btn svg {
+      width: 20px;
+      height: 20px;
     }
   </style>
   <script>
@@ -844,6 +881,19 @@
       document.getElementById('lightbox').classList.remove('active');
       document.getElementById('lightbox-img').src = '';
     }
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.addEventListener('scroll', function () {
+      var btn = document.getElementById('scrollTopBtn');
+      if (btn) {
+        if (window.scrollY > 350) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }
+    });
   </script>
 </head>
 
@@ -1515,6 +1565,12 @@
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="">
   </div>
+
+  <button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top" class="scroll-top-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
 </body>
 
