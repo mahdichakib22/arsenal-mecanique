@@ -324,37 +324,37 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(9, 12, 19, .92);
-      backdrop-filter: blur(6px);
+      background: rgba(9, 12, 19, .94);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--navy-700);
     }
 
     .toc-inner {
-      max-width: 700px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 12px 22px;
       display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .toc-inner::-webkit-scrollbar {
-      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
     }
 
     .toc-inner a {
       white-space: nowrap;
       color: var(--ink-300);
-      font-size: .85rem;
+      font-size: .88rem;
       font-weight: 600;
       text-decoration: none;
-      padding: 5px 1px;
+      padding: 4px 6px;
+      border-radius: 6px;
       border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
     }
 
     .toc-inner a:hover {
       color: var(--gold-300);
+      background: rgba(227, 180, 84, 0.08);
       border-bottom-color: var(--gold-400);
     }
 
