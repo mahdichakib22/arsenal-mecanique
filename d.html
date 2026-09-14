@@ -28,6 +28,31 @@
       --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
+    .section,
+    .conclusion,
+    .discord-section {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .section.is-visible,
+    .conclusion.is-visible,
+    .discord-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section,
+      .conclusion,
+      .discord-section {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
     *,
     *::before,
     *::after {
@@ -201,6 +226,14 @@
       overflow: hidden;
       padding: 75px 0 50px;
       border-bottom: 1px solid var(--navy-700);
+      transform: translateY(0);
+      transition: transform .35s ease, opacity .35s ease;
+    }
+
+    body.is-scrolling-down .toc {
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
     }
 
     .hero-chart-svg {
@@ -208,21 +241,56 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      opacity: .42;
+      opacity: .52;
       pointer-events: none;
       overflow: visible;
     }
 
-    .hero-chart-svg path {
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(227, 180, 84, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(227, 180, 84, .06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, #000, transparent 92%);
+      animation: grid-drift 18s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-chart-svg .chart-area {
+      fill: url(#chart-area);
+      opacity: .2;
+      animation: area-breathe 4s ease-in-out infinite;
+    }
+
+    .hero-chart-svg .chart-line {
       stroke-dasharray: 1800;
       stroke-dashoffset: 1800;
-      animation: draw-chart 5s ease-in-out infinite;
+      animation: draw-chart 8s cubic-bezier(.65, 0, .35, 1) infinite;
       filter: drop-shadow(0 0 6px rgba(227, 180, 84, .75));
+    }
+
+    .hero-chart-svg .chart-echo {
+      stroke-dasharray: 12 18;
+      animation: echo-slide 7s linear infinite;
+    }
+
+    .hero-chart-svg .chart-dot {
+      fill: var(--gold-300);
+      filter: drop-shadow(0 0 8px rgba(239, 203, 126, .9));
+      animation: dot-pulse 1.6s ease-in-out infinite;
     }
 
     .hero-chart-svg marker path {
       animation: arrow-pulse 1.8s ease-in-out infinite;
       transform-origin: center;
+    }
+
+    @keyframes grid-drift {
+      to {
+        background-position: 56px 56px;
+      }
     }
 
     @keyframes draw-chart {
@@ -239,6 +307,34 @@
       100% {
         stroke-dashoffset: 0;
         opacity: .42;
+      }
+    }
+
+    @keyframes echo-slide {
+      to {
+        stroke-dashoffset: -210;
+      }
+    }
+
+    @keyframes area-breathe {
+      0%, 100% {
+        opacity: .12;
+      }
+
+      50% {
+        opacity: .28;
+      }
+    }
+
+    @keyframes dot-pulse {
+      0%, 100% {
+        r: 4;
+        opacity: .65;
+      }
+
+      50% {
+        r: 7;
+        opacity: 1;
       }
     }
 
@@ -259,6 +355,13 @@
       .hero-chart-svg path {
         animation: none;
         stroke-dashoffset: 0;
+      }
+
+      .hero-chart-svg .chart-area,
+      .hero-chart-svg .chart-echo,
+      .hero-chart-svg .chart-dot,
+      .hero::before {
+        animation: none;
       }
 
       .hero-chart-svg marker path {
@@ -933,8 +1036,51 @@
         }
       }
     }
-    window.addEventListener('scroll', checkScroll);
-    document.addEventListener('DOMContentLoaded', checkScroll);
+
+    var lastScrollY = 0;
+    var scrollTicking = false;
+
+    function handleScroll() {
+      var currentScrollY = window.scrollY || document.documentElement.scrollTop;
+      document.body.classList.toggle('is-scrolling-down', currentScrollY > 80 && currentScrollY > lastScrollY);
+      if (currentScrollY < 20) {
+        document.body.classList.remove('is-scrolling-down');
+      }
+      lastScrollY = Math.max(currentScrollY, 0);
+      checkScroll();
+      scrollTicking = false;
+    }
+
+    function requestScrollUpdate() {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(handleScroll);
+        scrollTicking = true;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      checkScroll();
+      var revealItems = document.querySelectorAll('.section, .conclusion, .discord-section');
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .12 });
+        revealItems.forEach(function (item) {
+          revealObserver.observe(item);
+        });
+      } else {
+        revealItems.forEach(function (item) {
+          item.classList.add('is-visible');
+        });
+      }
+    });
+
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
   </script>
 </head>
 
@@ -947,11 +1093,26 @@
     </div>
     <svg class="hero-chart-svg" viewBox="0 0 800 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
+        <linearGradient id="chart-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E3B454" stop-opacity=".55" />
+          <stop offset="100%" stop-color="#E3B454" stop-opacity="0" />
+        </linearGradient>
         <marker id="chart-arrow" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
           <path d="M0,0 L10,5 L0,10 Z" fill="#E3B454" />
         </marker>
       </defs>
       <path
+        class="chart-area"
+        d="M0,240 L55,205 L105,218 L160,175 L210,188 L265,145 L315,158 L370,115 L420,130 L475,92 L525,108 L580,73 L630,88 L685,53 L745,70 L800,22 L800,300 L0,300 Z" />
+      <path
+        class="chart-echo"
+        d="M0,252 L55,217 L105,230 L160,187 L210,200 L265,157 L315,170 L370,127 L420,142 L475,104 L525,120 L580,85 L630,100 L685,65 L745,82 L800,34"
+        fill="none"
+        stroke="#EFCB7E"
+        stroke-width="1"
+        opacity=".35" />
+      <path
+        class="chart-line"
         d="M0,240 L55,205 L105,218 L160,175 L210,188 L265,145 L315,158 L370,115 L420,130 L475,92 L525,108 L580,73 L630,88 L685,53 L745,70 L800,22"
         fill="none"
         stroke="#E3B454"
@@ -959,6 +1120,7 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         marker-end="url(#chart-arrow)" />
+      <circle class="chart-dot" cx="800" cy="22" r="4" />
     </svg>
 
     <div class="wrap hero-content">
@@ -1528,45 +1690,6 @@
       </div>
     </section>
 
-    <!-- SECTION CONTACT -->
-    <section id="contact" class="section">
-      <div class="wrap">
-        <h2 class="lang fr">Contact &amp; Support</h2>
-        <h2 class="lang en">Contact &amp; Support</h2>
-
-        <p class="lang fr">Une question sur la formation ou l'accompagnement VIP ? Besoin d'informations complémentaires avant de vous lancer ? Contactez-moi directement.</p>
-        <p class="lang en">Have a question about the Masterclass or VIP Coaching? Need more information before getting started? Feel free to reach out directly.</p>
-
-        <div class="contact-card">
-          <div class="contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <div>
-              <strong>
-                <span class="lang fr">Email Direct</span>
-                <span class="lang en">Direct Email</span>
-              </strong>
-              <p style="margin:0;"><a href="mailto:contact.arsenalmecanique@gmail.com">contact.arsenalmecanique@gmail.com</a></p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            <div>
-              <strong>
-                <span class="lang fr">Discord Direct</span>
-                <span class="lang en">Direct Discord</span>
-              </strong>
-              <p style="margin:0;">
-                <a href="https://discord.com/users/tiff10" target="_blank" style="color: var(--gold-300); font-weight: 700;">
-                  <span class="lang fr">Ajouter sur Discord : tiff10</span>
-                  <span class="lang en">Add on Discord: tiff10</span>
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- SECTION MENTIONS LÉGALES -->
     <section id="mentions-legales" class="section">
       <div class="wrap">
@@ -1612,6 +1735,34 @@
       <p style="margin: 0;">&copy; 2026 L'Arsenal Mécanique by M.Chakib. Tous droits réservés.</p>
     </div>
   </footer>
+
+  <!-- SECTION CONTACT : placée sous le copyright -->
+  <section id="contact" class="section">
+    <div class="wrap">
+      <h2 class="lang fr">Contact &amp; Support</h2>
+      <h2 class="lang en">Contact &amp; Support</h2>
+
+      <p class="lang fr">Une question sur la formation ou l'accompagnement VIP ? Besoin d'informations complémentaires avant de vous lancer ? Contactez-moi directement.</p>
+      <p class="lang en">Have a question about the Masterclass or VIP Coaching? Need more information before getting started? Feel free to reach out directly.</p>
+
+      <div class="contact-card">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <div>
+            <strong><span class="lang fr">Email Direct</span><span class="lang en">Direct Email</span></strong>
+            <p style="margin:0;"><a href="mailto:contact.arsenalmecanique@gmail.com">contact.arsenalmecanique@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <div>
+            <strong><span class="lang fr">Discord Direct</span><span class="lang en">Direct Discord</span></strong>
+            <p style="margin:0;"><a href="https://discord.com/users/tiff10" target="_blank" rel="noopener" style="color: var(--gold-300); font-weight: 700;"><span class="lang fr">Ajouter sur Discord : tiff10</span><span class="lang en">Add on Discord: tiff10</span></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="">
