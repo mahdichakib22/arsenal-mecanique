@@ -172,11 +172,11 @@
     }
 
     .lang.en {
-      display: none;
+      display: none !important;
     }
 
     body.en-active .lang.fr {
-      display: none;
+      display: none !important;
     }
 
     body.en-active .lang.en {
@@ -184,15 +184,15 @@
     }
 
     span.lang.en {
-      display: none;
+      display: none !important;
     }
 
     body.en-active span.lang.fr {
-      display: none;
+      display: none !important;
     }
 
     body.en-active span.lang.en {
-      display: inline;
+      display: inline !important;
     }
 
     /* HERO */
@@ -843,8 +843,10 @@
         <li>Risk Management rules for survival</li>
       </ul>
 
-      <a href="#offres" class="btn-primary lang fr" style="display: inline-block; width: auto;">Voir les offres</a>
-      <a href="#offres" class="btn-primary lang en" style="display: inline-block; width: auto;">View Offers</a>
+      <a href="#offres" class="btn-primary" style="display: inline-block; width: auto;">
+        <span class="lang fr">Voir les offres</span>
+        <span class="lang en">View Offers</span>
+      </a>
     </div>
   </header>
 
@@ -1267,10 +1269,11 @@
               <p>The complete document, revealing the exact checklist and annotated charts of the strategy.</p>
               <p class="price-tag">1 000€ <span>/ one-time payment</span></p>
             </div>
-            <a href="https://wise.com/pay/r/BUusoNCMj8JfGq8" target="_blank" class="btn-primary btn-full lang fr"
-              style="background: var(--navy-700); color: var(--ink-100);">Acheter la formation</a>
-            <a href="https://wise.com/pay/r/BUusoNCMj8JfGq8" target="_blank" class="btn-primary btn-full lang en"
-              style="background: var(--navy-700); color: var(--ink-100);">Buy the Training</a>
+            <a href="https://wise.com/pay/r/BUusoNCMj8JfGq8" target="_blank" class="btn-primary btn-full"
+              style="background: var(--navy-700); color: var(--ink-100);">
+              <span class="lang fr">Acheter la formation</span>
+              <span class="lang en">Buy the Training</span>
+            </a>
           </div>
 
           <!-- OFFRE VIP DISCORD -->
@@ -1331,10 +1334,10 @@
               </ul>
               <p class="price-tag">100€ <span>/ month</span></p>
             </div>
-            <a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank"
-              class="btn-primary btn-full lang fr">Rejoindre le Discord</a>
-            <a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank" class="btn-primary btn-full lang en">Join
-              the Discord</a>
+            <a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank" class="btn-primary btn-full">
+              <span class="lang fr">Rejoindre le Discord</span>
+              <span class="lang en">Join the Discord</span>
+            </a>
           </div>
         </div>
       </div>
