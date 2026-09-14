@@ -820,6 +820,9 @@
       font-style: italic;
       font-size: 1.3rem;
       color: var(--gold-300);
+      margin: 0;
+    }
+
     /* SCROLL TO TOP BUTTON */
     .scroll-top-btn {
       position: fixed;
@@ -884,16 +887,18 @@
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    window.addEventListener('scroll', function () {
+    function checkScroll() {
       var btn = document.getElementById('scrollTopBtn');
       if (btn) {
-        if (window.scrollY > 350) {
+        if (window.scrollY > 200 || document.documentElement.scrollTop > 200) {
           btn.classList.add('visible');
         } else {
           btn.classList.remove('visible');
         }
       }
-    });
+    }
+    window.addEventListener('scroll', checkScroll);
+    document.addEventListener('DOMContentLoaded', checkScroll);
   </script>
 </head>
 
