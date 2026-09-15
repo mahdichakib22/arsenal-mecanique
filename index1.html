@@ -2,1778 +2,1345 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>L'Arsenal Mécanique - by M.Chakib</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --navy-950: #0A0E17;
-      --navy-900: #10151F;
-      --navy-800: #171E2E;
-      --navy-700: #232C40;
-      --navy-600: #3A4459;
-      --gold-400: #E3B454;
-      --gold-300: #EFCB7E;
-      --bull-500: #3DD68C;
-      --bear-500: #E8636B;
-      --ink-100: #F0F2F7;
-      --ink-300: #C7CCDA;
-      --ink-400: #8D96AC;
-      --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    .section,
-    .conclusion,
-    .discord-section {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-
-    .section.is-visible,
-    .conclusion.is-visible,
-    .discord-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .section,
-      .conclusion,
-      .discord-section {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-    }
-
-    body {
-      margin: 0;
-      background: radial-gradient(ellipse 1200px 700px at 50% -10%, rgba(227, 180, 84, 0.07), transparent), var(--navy-900);
-      color: var(--ink-100);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    img,
-    svg {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: var(--gold-300);
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--gold-400);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    .wrap {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 22px;
-      position: relative;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-      font-family: var(--serif);
-      font-weight: 600;
-      line-height: 1.18;
-      color: #fff;
-      margin: 0 0 .5em;
-    }
-
-    h2 {
-      font-size: clamp(1.6rem, 4.5vw, 2.15rem);
-      margin-top: 0;
-    }
-
-    h3 {
-      font-family: var(--serif);
-      font-size: clamp(1.15rem, 3vw, 1.4rem);
-      color: var(--gold-300);
-      margin-top: 1.6em;
-    }
-
-    h4 {
-      font-family: var(--sans);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--ink-100);
-      margin-bottom: 6px;
-    }
-
-    p {
-      color: var(--ink-300);
-      margin: 0 0 1.1em;
-      max-width: 66ch;
-    }
-
-    strong {
-      color: var(--ink-100);
-    }
-
-    .section {
-      padding: 56px 0;
-      border-bottom: 1px solid var(--navy-700);
-      scroll-margin-top: 60px;
-    }
-
-    /* LANGUAGE TOGGLE */
-    .lang-toggle {
-      position: absolute;
-      top: 15px;
-      right: 22px;
-      z-index: 100;
-      display: flex;
-      gap: 6px;
-    }
-
-    .lang-toggle button {
-      background: rgba(23, 30, 46, 0.8);
-      border: 1px solid var(--navy-600);
-      color: var(--ink-300);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-      backdrop-filter: blur(4px);
-    }
-
-    .lang-toggle button:hover {
-      border-color: var(--gold-400);
-      color: var(--gold-300);
-    }
-
-    .lang-toggle button.active {
-      background: var(--gold-400);
-      color: var(--navy-950);
-      border-color: var(--gold-400);
-    }
-
-    /* Default (FR active): Hide EN elements */
-    .lang.en,
-    span.lang.en {
-      display: none !important;
-    }
-    .lang.fr {
-      display: block;
-    }
-    span.lang.fr {
-      display: inline;
-    }
-
-    /* EN active: Hide FR elements, Show EN elements */
-    body.en-active .lang.fr,
-    body.en-active span.lang.fr {
-      display: none !important;
-    }
-    body.en-active .lang.en {
-      display: block !important;
-    }
-    body.en-active span.lang.en {
-      display: inline !important;
-    }
-
-    /* HERO */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 75px 0 50px;
-      border-bottom: 1px solid var(--navy-700);
-      transform: translateY(0);
-      transition: transform .35s ease, opacity .35s ease;
-    }
-
-    body.is-scrolling-down .toc {
-      transform: translateY(-110%);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .hero-chart-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: .52;
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(rgba(227, 180, 84, .06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(227, 180, 84, .06) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(to bottom, #000, transparent 92%);
-      animation: grid-drift 18s linear infinite;
-      pointer-events: none;
-    }
-
-    .hero-chart-svg .chart-area {
-      fill: url(#chart-area);
-      opacity: .2;
-      animation: area-breathe 4s ease-in-out infinite;
-    }
-
-    .hero-chart-svg .chart-line {
-      stroke-dasharray: 1800;
-      stroke-dashoffset: 1800;
-      animation: draw-chart 8s cubic-bezier(.65, 0, .35, 1) infinite;
-      filter: drop-shadow(0 0 6px rgba(227, 180, 84, .75));
-    }
-
-    .hero-chart-svg .chart-echo {
-      stroke-dasharray: 12 18;
-      animation: echo-slide 7s linear infinite;
-    }
-
-    .hero-chart-svg .chart-dot {
-      fill: var(--gold-300);
-      filter: drop-shadow(0 0 8px rgba(239, 203, 126, .9));
-      animation: dot-pulse 1.6s ease-in-out infinite;
-    }
-
-    .hero-chart-svg marker path {
-      animation: arrow-pulse 1.8s ease-in-out infinite;
-      transform-origin: center;
-    }
-
-    @keyframes grid-drift {
-      to {
-        background-position: 56px 56px;
-      }
-    }
-
-    @keyframes draw-chart {
-      0% {
-        stroke-dashoffset: 1800;
-        opacity: .2;
-      }
-
-      12% {
-        opacity: .55;
-      }
-
-      70%,
-      100% {
-        stroke-dashoffset: 0;
-        opacity: .42;
-      }
-    }
-
-    @keyframes echo-slide {
-      to {
-        stroke-dashoffset: -210;
-      }
-    }
-
-    @keyframes area-breathe {
-      0%, 100% {
-        opacity: .12;
-      }
-
-      50% {
-        opacity: .28;
-      }
-    }
-
-    @keyframes dot-pulse {
-      0%, 100% {
-        r: 4;
-        opacity: .65;
-      }
-
-      50% {
-        r: 7;
-        opacity: 1;
-      }
-    }
-
-    @keyframes arrow-pulse {
-      0%,
-      100% {
-        opacity: .65;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1.18);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-chart-svg path {
-        animation: none;
-        stroke-dashoffset: 0;
-      }
-
-      .hero-chart-svg .chart-area,
-      .hero-chart-svg .chart-echo,
-      .hero-chart-svg .chart-dot,
-      .hero::before {
-        animation: none;
-      }
-
-      .hero-chart-svg marker path {
-        animation: none;
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.1rem, 7vw, 3.3rem);
-      margin-bottom: .3em;
-    }
-
-    .hero h1 span {
-      font-size: 0.6em;
-      color: var(--gold-300);
-      font-family: var(--sans);
-      font-style: italic;
-      font-weight: 500;
-      display: block;
-      margin-top: 8px;
-    }
-
-    .hero-sub {
-      font-family: var(--sans);
-      color: var(--gold-300);
-      font-size: 1.02rem;
-      font-weight: 600;
-      margin: 0 0 1.3em;
-    }
-
-    .hero-hook {
-      color: var(--ink-300);
-      font-size: 1.02rem;
-    }
-
-    .hero-list {
-      list-style: none;
-      margin: 1.5em 0 2em;
-      padding: 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .hero-list li {
-      color: var(--ink-100);
-      padding-left: 1.5em;
-      position: relative;
-      font-size: .95rem;
-    }
-
-    .hero-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: .55em;
-      width: 6px;
-      height: 6px;
-      background: var(--gold-400);
-      border-radius: 50%;
-    }
-
-    /* BUTTONS */
-    .btn-primary {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--gold-400);
-      color: var(--navy-950);
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 1.05rem;
-      padding: 16px 32px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(227, 180, 84, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-300);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(227, 180, 84, 0.35);
-    }
-
-    .btn-full {
-      width: 100%;
-      margin-top: 1em;
-    }
-
-    /* TOC */
-    .toc {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(9, 12, 19, .94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--navy-700);
-    }
-
-    .toc-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 12px 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px 18px;
-    }
-
-    .toc-inner a {
-      white-space: nowrap;
-      color: var(--ink-300);
-      font-size: .88rem;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 4px 6px;
-      border-radius: 6px;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s ease;
-    }
-
-    .toc-inner a:hover {
-      color: var(--gold-300);
-      background: rgba(227, 180, 84, 0.08);
-      border-bottom-color: var(--gold-400);
-    }
-
-    /* CONTACT CARD */
-    .contact-card {
-      background: var(--navy-800);
-      border: 1px solid var(--navy-700);
-      border-radius: 12px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin-top: 1.5em;
-    }
-
-    @media (min-width: 560px) {
-      .contact-card {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .contact-item strong {
-      display: block;
-      color: var(--gold-300);
-      font-size: 0.95rem;
-    }
-
-    /* LEGAL SECTION */
-    .legal-content h4 {
-      color: var(--gold-300);
-      font-size: 0.98rem;
-      margin-top: 1.4em;
-      margin-bottom: 4px;
-    }
-
-    .legal-content p {
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: var(--ink-400);
-    }
-
-    /* STORY SECTION */
-    .story-card {
-      background: var(--navy-800);
-      border-left: 4px solid var(--gold-400);
-      padding: 24px 28px;
-      border-radius: 0 12px 12px 0;
-      margin: 1.5em 0;
-    }
-
-    .story-card p {
-      font-size: 0.95rem;
-      margin-bottom: 1em;
-    }
-
-    .story-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* CALLOUT */
-    .callout {
-      border-left: 3px solid var(--gold-400);
-      background: var(--navy-800);
-      padding: 16px 18px;
-      border-radius: 0 8px 8px 0;
-      margin: 1.4em 0;
-    }
-
-    .callout p {
-      margin: 0;
-      font-size: .95rem;
-    }
-
-    /* GLOSSARY GRID */
-    .glossary-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin: 1.6em 0;
-    }
-
-    @media (min-width:560px) {
-      .glossary-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .term {
-      padding: 14px 16px;
-      background: var(--navy-800);
-      border: 1px solid var(--navy-700);
-      border-radius: 8px;
-    }
-
-    .term strong {
-      display: block;
-      color: var(--gold-300);
-      font-size: .92rem;
-      margin-bottom: 4px;
-    }
-
-    .term span {
-      color: var(--ink-300);
-      font-size: .88rem;
-    }
-
-    /* TIMELINE */
-    .timeline-track {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin: 1.8em 0 8px;
-    }
-
-    @media (min-width:640px) {
-      .timeline-track {
-        flex-direction: row;
-      }
-    }
-
-    .segment {
-      flex: 1;
-      background: var(--navy-800);
-      border: 1px solid var(--navy-700);
-      border-radius: 10px;
-      padding: 16px 18px;
-    }
-
-    .segment .seg-name {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: .98rem;
-      color: var(--ink-100);
-      margin-bottom: 3px;
-    }
-
-    .segment .seg-time {
-      display: block;
-      color: var(--ink-400);
-      font-size: .82rem;
-      margin-bottom: 8px;
-    }
-
-    .segment .seg-desc {
-      color: var(--ink-300);
-      font-size: .87rem;
-      margin: 0;
-      max-width: none;
-    }
-
-    .segment.us {
-      background: linear-gradient(160deg, rgba(227, 180, 84, .14), var(--navy-800));
-      border-color: var(--gold-400);
-    }
-
-    .segment.us .seg-name {
-      color: var(--gold-300);
-    }
-
-    /* TEASING LIST (CORRIGÉ) */
-    .teasing-list {
-      background: var(--navy-800);
-      border: 1px solid var(--navy-700);
-      border-radius: 12px;
-      padding: 24px;
-      margin: 1.5em 0;
-    }
-
-    .teasing-list ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 16px;
-    }
-
-    .teasing-list li {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      color: var(--ink-100);
-      font-size: 0.98rem;
-    }
-
-    .teasing-list li svg {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      color: var(--gold-400);
-      margin-top: 2px;
-    }
-
-    /* La correction principale est dans le HTML avec les balises <span> */
-
-    /* IMAGE PLACEHOLDER */
-    .img-placeholder {
-      border: 1px dashed var(--navy-600);
-      border-radius: 10px;
-      padding: 26px 20px;
-      text-align: center;
-      margin: 1.3em 0;
-      background: rgba(255, 255, 255, .02);
-    }
-
-    .img-placeholder svg {
-      margin: 0 auto 10px;
-      opacity: .45;
-    }
-
-    .ph-label {
-      display: block;
-      color: var(--ink-400);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-      margin-bottom: 6px;
-    }
-
-    .img-placeholder p {
-      color: var(--ink-400);
-      font-size: .85rem;
-      font-style: italic;
-      margin: 0 auto;
-      max-width: 46ch;
-    }
-
-    /* PAYOUTS GRID */
-    .payout-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 2em 0;
-    }
-
-    /* PROOF GALLERY (screenshots réels des payouts) */
-    .proof-label {
-      color: var(--ink-400);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      margin: 0 0 14px;
-    }
-
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-      margin: 0 0 1.5em;
-    }
-
-    .proof-card {
-      border: 1px solid var(--navy-700);
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--navy-800);
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-
-    .proof-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-400);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
-    }
-
-    .proof-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      cursor: zoom-in;
-    }
-
-    .proof-caption {
-      padding: 10px 14px;
-      font-size: .82rem;
-      color: var(--ink-300);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--sans);
-      border-top: 1px solid var(--navy-700);
-    }
-
-    .proof-caption strong {
-      color: var(--gold-300);
-      font-weight: 700;
-    }
-
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(6, 8, 13, .92);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      cursor: zoom-out;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
-
-    .lightbox img {
-      max-width: 100%;
-      max-height: 92vh;
-      border-radius: 8px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
-    }
-
-    .payout-card {
-      background: var(--navy-800);
-      border: 1px solid var(--navy-700);
-      border-radius: 12px;
-      padding: 24px 20px;
-      text-align: center;
-    }
-
-    .payout-card svg {
-      margin: 0 auto 15px;
-      color: var(--bull-500);
-      width: 36px;
-      height: 36px;
-    }
-
-    .payout-amount {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      color: var(--bull-500);
-      margin: 5px 0;
-      font-weight: 600;
-    }
-
-    .payout-firm {
-      color: var(--ink-100);
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .payout-date {
-      color: var(--ink-400);
-      font-size: 0.85rem;
-    }
-
-    .payout-subtext {
-      color: var(--ink-400);
-      font-size: 0.75rem;
-      font-family: var(--sans);
-    }
-
-    /* CHECK LISTS */
-    .check-list {
-      list-style: none;
-      padding: 0;
-      margin: 1.6em 0;
-      display: grid;
-      gap: 14px;
-    }
-
-    .check-list li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      color: var(--ink-300);
-      font-size: .95rem;
-    }
-
-    .check-list li svg {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      margin-top: 2px;
-    }
-
-    /* DISCORD CTA */
-    .discord-section {
-      padding: 60px 0;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin-top: 2em;
-    }
-
-    @media (min-width: 640px) {
-      .pricing-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .discord-card {
-      border: 1px solid var(--navy-600);
-      background: var(--navy-800);
-      border-radius: 16px;
-      padding: 34px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .discord-card.premium {
-      border-color: var(--gold-400);
-      background: linear-gradient(160deg, rgba(227, 180, 84, .08), var(--navy-800));
-    }
-
-    .discord-card ul {
-      padding-left: 0;
-      list-style: none;
-      margin: 1.3em 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .discord-card ul li {
-      padding-left: 1.5em;
-      position: relative;
-      color: var(--ink-300);
-      font-size: .95rem;
-    }
-
-    .discord-card ul li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: .55em;
-      width: 6px;
-      height: 6px;
-      background: var(--gold-400);
-      border-radius: 50%;
-    }
-
-    .price-tag {
-      font-family: var(--serif);
-      font-size: 2rem;
-      color: var(--gold-300);
-      margin: .5em 0;
-    }
-
-    .price-tag span {
-      font-family: var(--sans);
-      font-size: .85rem;
-      color: var(--ink-400);
-      font-weight: 600;
-    }
-
-    /* CONCLUSION */
-    .conclusion {
-      padding: 56px 0 90px;
-    }
-
-    .sign-off {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 1.3rem;
-      color: var(--gold-300);
-      margin: 0;
-    }
-
-    /* SCROLL TO TOP BUTTON */
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 99;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(23, 30, 46, 0.85);
-      border: 1px solid var(--gold-400);
-      color: var(--gold-300);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    }
-
-    .scroll-top-btn:hover {
-      background: var(--gold-400);
-      color: var(--navy-950);
-      transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(227, 180, 84, 0.4);
-    }
-
-    .scroll-top-btn.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .scroll-top-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-  </style>
-  <script>
-    function switchLang(lang) {
-      if (lang === 'en') {
-        document.body.classList.add('en-active');
-        document.getElementById('btn-en').classList.add('active');
-        document.getElementById('btn-fr').classList.remove('active');
-      } else {
-        document.body.classList.remove('en-active');
-        document.getElementById('btn-fr').classList.add('active');
-        document.getElementById('btn-en').classList.remove('active');
-      }
-    }
-    function openLightbox(src) {
-      var lb = document.getElementById('lightbox');
-      document.getElementById('lightbox-img').src = src;
-      lb.classList.add('active');
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-      document.getElementById('lightbox-img').src = '';
-    }
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    function checkScroll() {
-      var btn = document.getElementById('scrollTopBtn');
-      if (btn) {
-        if (window.scrollY > 200 || document.documentElement.scrollTop > 200) {
-          btn.classList.add('visible');
-        } else {
-          btn.classList.remove('visible');
-        }
-      }
-    }
-
-    var lastScrollY = 0;
-    var scrollTicking = false;
-
-    function handleScroll() {
-      var currentScrollY = window.scrollY || document.documentElement.scrollTop;
-      document.body.classList.toggle('is-scrolling-down', currentScrollY > 80 && currentScrollY > lastScrollY);
-      if (currentScrollY < 20) {
-        document.body.classList.remove('is-scrolling-down');
-      }
-      lastScrollY = Math.max(currentScrollY, 0);
-      checkScroll();
-      scrollTicking = false;
-    }
-
-    function requestScrollUpdate() {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(handleScroll);
-        scrollTicking = true;
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      checkScroll();
-      var revealItems = document.querySelectorAll('.section, .conclusion, .discord-section');
-      if ('IntersectionObserver' in window) {
-        var revealObserver = new IntersectionObserver(function (entries, observer) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: .12 });
-        revealItems.forEach(function (item) {
-          revealObserver.observe(item);
-        });
-      } else {
-        revealItems.forEach(function (item) {
-          item.classList.add('is-visible');
-        });
-      }
-    });
-
-    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Arsenal Mécanique - by M.Chakib</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--navy-950: #0A0E17;
+--navy-900: #10151F;
+--navy-800: #171E2E;
+--navy-700: #232C40;
+--navy-600: #3A4459;
+--gold-400: #E3B454;
+--gold-300: #EFCB7E;
+--bull-500: #3DD68C;
+--bear-500: #E8636B;
+--ink-100: #F0F2F7;
+--ink-300: #C7CCDA;
+--ink-400: #8D96AC;
+--serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+--sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+html {
+scroll-behavior: auto;
+}
+*,
+*::before,
+*::after {
+animation-duration: .01ms !important;
+transition-duration: .01ms !important;
+}
+}
+
+body {
+margin: 0;
+background: radial-gradient(ellipse 1200px 700px at 50% -10%, rgba(227, 180, 84, 0.07), transparent), var(--navy-900);
+color: var(--ink-100);
+font-family: var(--sans);
+font-size: 16px;
+line-height: 1.65;
+-webkit-font-smoothing: antialiased;
+overflow-x: hidden;
+}
+
+img,
+svg {
+max-width: 100%;
+display: block;
+}
+
+a {
+color: var(--gold-300);
+}
+
+a:hover {
+text-decoration: none;
+}
+
+:focus-visible {
+outline: 2px solid var(--gold-400);
+outline-offset: 3px;
+border-radius: 2px;
+}
+
+.wrap {
+max-width: 700px;
+margin: 0 auto;
+padding: 0 22px;
+position: relative;
+}
+
+h1, h2, h3, h4 {
+font-family: var(--serif);
+font-weight: 600;
+line-height: 1.18;
+color: #fff;
+margin: 0 0 .5em;
+}
+
+h2 {
+font-size: clamp(1.6rem, 4.5vw, 2.15rem);
+margin-top: 0;
+}
+
+h3 {
+font-family: var(--serif);
+font-size: clamp(1.15rem, 3vw, 1.4rem);
+color: var(--gold-300);
+margin-top: 1.6em;
+}
+
+h4 {
+font-family: var(--sans);
+font-size: 1.05rem;
+font-weight: 700;
+color: var(--ink-100);
+margin-bottom: 6px;
+}
+
+p {
+color: var(--ink-300);
+margin: 0 0 1.1em;
+max-width: 66ch;
+}
+
+strong {
+color: var(--ink-100);
+}
+
+.section {
+padding: 56px 0;
+border-bottom: 1px solid var(--navy-700);
+scroll-margin-top: 60px;
+}
+
+/* LANGUAGE TOGGLE */
+.lang-toggle {
+position: absolute;
+top: 15px;
+right: 22px;
+z-index: 100;
+display: flex;
+gap: 6px;
+}
+
+.lang-toggle button {
+background: rgba(23, 30, 46, 0.8);
+border: 1px solid var(--navy-600);
+color: var(--ink-300);
+padding: 6px 12px;
+border-radius: 6px;
+cursor: pointer;
+font-family: var(--sans);
+font-weight: 600;
+font-size: 0.85rem;
+transition: all 0.2s;
+backdrop-filter: blur(4px);
+}
+
+.lang-toggle button:hover {
+border-color: var(--gold-400);
+color: var(--gold-300);
+}
+
+.lang-toggle button.active {
+background: var(--gold-400);
+color: var(--navy-950);
+border-color: var(--gold-400);
+}
+
+.lang.en, span.lang.en { display: none !important; }
+.lang.fr { display: block; }
+span.lang.fr { display: inline; }
+
+body.en-active .lang.fr, body.en-active span.lang.fr { display: none !important; }
+body.en-active .lang.en { display: block !important; }
+body.en-active span.lang.en { display: inline !important; }
+
+/* HERO & ANIMATIONS */
+.hero {
+position: relative;
+overflow: hidden;
+padding: 75px 0 50px;
+border-bottom: 1px solid var(--navy-700);
+background: radial-gradient(ellipse 900px 400px at 70% 100%, rgba(61, 214, 140, 0.1), transparent), var(--navy-900);
+}
+
+.hero-chart-svg {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+opacity: 0.85;
+pointer-events: none;
+}
+
+.chart-path {
+stroke-dasharray: 2500;
+stroke-dashoffset: 2500;
+/* Animation de 6 secondes en boucle */
+animation: drawAndShootUp 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes drawAndShootUp {
+0% { stroke-dashoffset: 2500; opacity: 0; }
+5% { opacity: 1; }
+55% { stroke-dashoffset: 0; opacity: 1; filter: brightness(1); }
+75% { stroke-dashoffset: 0; opacity: 1; filter: brightness(1.5); }
+95% { stroke-dashoffset: 0; opacity: 0; }
+100% { stroke-dashoffset: 2500; opacity: 0; }
+}
+
+/* Pluie de billets/pièces */
+.money-rain {
+position: absolute;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+
+.money-rain span {
+position: absolute;
+top: -100px;
+left: var(--left);
+font-size: 2rem;
+opacity: 0;
+animation: moneyFall 6s linear infinite;
+animation-delay: var(--delay);
+}
+
+@keyframes moneyFall {
+0%, 65% { transform: translateY(0) rotate(0deg); opacity: 0; }
+70% { opacity: 1; }
+90% { opacity: 1; }
+100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+}
+
+.hero-content {
+position: relative;
+z-index: 1;
+}
+
+.hero h1 {
+font-size: clamp(2.1rem, 7vw, 3.3rem);
+margin-bottom: .3em;
+}
+
+.hero h1 span {
+font-size: 0.6em;
+color: var(--gold-300);
+font-family: var(--sans);
+font-style: italic;
+font-weight: 500;
+display: block;
+margin-top: 8px;
+}
+
+.hero-sub {
+font-family: var(--sans);
+color: var(--gold-300);
+font-size: 1.02rem;
+font-weight: 600;
+margin: 0 0 1.3em;
+}
+
+.hero-hook {
+color: var(--ink-300);
+font-size: 1.02rem;
+}
+
+.hero-list {
+list-style: none;
+margin: 1.5em 0 2em;
+padding: 0;
+display: grid;
+gap: 10px;
+}
+
+.hero-list li {
+color: var(--ink-100);
+padding-left: 1.5em;
+position: relative;
+font-size: .95rem;
+}
+
+.hero-list li::before {
+content: '';
+position: absolute;
+left: 0;
+top: .55em;
+width: 6px;
+height: 6px;
+background: var(--gold-400);
+border-radius: 50%;
+}
+
+/* BUTTONS */
+.btn-primary {
+display: inline-flex;
+justify-content: center;
+align-items: center;
+background: var(--gold-400);
+color: var(--navy-950);
+font-family: var(--sans);
+font-weight: 700;
+font-size: 1.05rem;
+padding: 16px 32px;
+border-radius: 8px;
+text-decoration: none;
+transition: all 0.2s ease;
+border: none;
+cursor: pointer;
+box-shadow: 0 4px 14px rgba(227, 180, 84, 0.25);
+}
+
+.btn-primary:hover {
+background: var(--gold-300);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(227, 180, 84, 0.35);
+}
+
+.btn-full {
+width: 100%;
+margin-top: 1em;
+}
+
+/* TOC */
+.toc {
+position: sticky;
+top: 0;
+z-index: 10;
+background: rgba(9, 12, 19, .94);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid var(--navy-700);
+}
+
+.toc-inner {
+max-width: 900px;
+margin: 0 auto;
+padding: 12px 22px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+gap: 8px 18px;
+}
+
+.toc-inner a {
+white-space: nowrap;
+color: var(--ink-300);
+font-size: .88rem;
+font-weight: 600;
+text-decoration: none;
+padding: 4px 6px;
+border-radius: 6px;
+border-bottom: 2px solid transparent;
+transition: all 0.2s ease;
+}
+
+.toc-inner a:hover {
+color: var(--gold-300);
+background: rgba(227, 180, 84, 0.08);
+border-bottom-color: var(--gold-400);
+}
+
+/* STORY SECTION */
+.story-card {
+background: var(--navy-800);
+border-left: 4px solid var(--gold-400);
+padding: 24px 28px;
+border-radius: 0 12px 12px 0;
+margin: 1.5em 0;
+}
+
+.story-card p {
+font-size: 0.95rem;
+margin-bottom: 1em;
+}
+
+.story-card p:last-child {
+margin-bottom: 0;
+}
+
+/* GLOSSARY GRID */
+.glossary-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 12px;
+margin: 1.6em 0;
+}
+
+@media (min-width:560px) {
+.glossary-grid {
+grid-template-columns: 1fr 1fr;
+}
+}
+
+.term {
+padding: 14px 16px;
+background: var(--navy-800);
+border: 1px solid var(--navy-700);
+border-radius: 8px;
+}
+
+.term strong {
+display: block;
+color: var(--gold-300);
+font-size: .92rem;
+margin-bottom: 4px;
+}
+
+.term span {
+color: var(--ink-300);
+font-size: .88rem;
+}
+
+/* TIMELINE */
+.timeline-track {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin: 1.8em 0 8px;
+}
+
+@media (min-width:640px) {
+.timeline-track {
+flex-direction: row;
+}
+}
+
+.segment {
+flex: 1;
+background: var(--navy-800);
+border: 1px solid var(--navy-700);
+border-radius: 10px;
+padding: 16px 18px;
+}
+
+.segment .seg-name {
+font-family: var(--sans);
+font-weight: 700;
+font-size: .98rem;
+color: var(--ink-100);
+margin-bottom: 3px;
+}
+
+.segment .seg-time {
+display: block;
+color: var(--ink-400);
+font-size: .82rem;
+margin-bottom: 8px;
+}
+
+.segment .seg-desc {
+color: var(--ink-300);
+font-size: .87rem;
+margin: 0;
+max-width: none;
+}
+
+.segment.us {
+background: linear-gradient(160deg, rgba(227, 180, 84, .14), var(--navy-800));
+border-color: var(--gold-400);
+}
+
+.segment.us .seg-name {
+color: var(--gold-300);
+}
+
+/* TEASING LIST */
+.teasing-list {
+background: var(--navy-800);
+border: 1px solid var(--navy-700);
+border-radius: 12px;
+padding: 24px;
+margin: 1.5em 0;
+}
+
+.teasing-list ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 16px;
+}
+
+.teasing-list li {
+display: flex;
+gap: 14px;
+align-items: flex-start;
+color: var(--ink-100);
+font-size: 0.98rem;
+}
+
+.teasing-list li svg {
+flex-shrink: 0;
+width: 22px;
+height: 22px;
+color: var(--gold-400);
+margin-top: 2px;
+}
+
+/* PAYOUTS MASTER FRAME */
+.payouts-master-frame {
+background: linear-gradient(145deg, var(--navy-800), #0d111a);
+border: 1px solid var(--gold-400);
+border-radius: 16px;
+padding: 32px 24px;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+margin: 2em 0;
+position: relative;
+}
+
+.payouts-master-frame::before {
+content: '';
+position: absolute;
+top: 0; left: 10%; right: 10%;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+opacity: 0.5;
+}
+
+.payout-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 20px;
+margin-bottom: 2em;
+}
+
+.payout-card {
+background: rgba(23, 30, 46, 0.5);
+border: 1px solid var(--navy-700);
+border-radius: 12px;
+padding: 20px 16px;
+text-align: center;
+backdrop-filter: blur(4px);
+}
+
+.payout-card svg {
+margin: 0 auto 12px;
+color: var(--bull-500);
+width: 32px;
+height: 32px;
+}
+
+.payout-amount {
+font-family: var(--serif);
+font-size: 1.6rem;
+color: var(--bull-500);
+margin: 5px 0;
+font-weight: 600;
+}
+
+.payout-firm {
+color: var(--ink-100);
+font-size: 1rem;
+font-weight: 600;
+margin-bottom: 4px;
+}
+
+.payout-date {
+color: var(--ink-400);
+font-size: 0.85rem;
+}
+
+.payout-subtext {
+color: var(--ink-400);
+font-size: 0.75rem;
+font-family: var(--sans);
+}
+
+.proof-label {
+color: var(--ink-400);
+font-size: .78rem;
+font-weight: 700;
+letter-spacing: .06em;
+text-transform: uppercase;
+margin: 0 0 14px;
+text-align: center;
+}
+
+.proof-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+gap: 18px;
+}
+
+.proof-card {
+border: 1px solid var(--navy-700);
+border-radius: 8px;
+overflow: hidden;
+background: var(--navy-900);
+pointer-events: none; /* Empeche tout clic ou zoom */
+user-select: none;
+}
+
+.proof-card img {
+width: 100%;
+height: auto;
+display: block;
+filter: contrast(1.05); /* Rendu un peu plus net */
+}
+
+.proof-caption {
+padding: 10px 14px;
+font-size: .82rem;
+color: var(--ink-300);
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-family: var(--sans);
+border-top: 1px solid var(--navy-700);
+background: var(--navy-800);
+}
+
+.proof-caption strong {
+color: var(--gold-300);
+font-weight: 700;
+}
+
+/* CHECK LISTS */
+.check-list {
+list-style: none;
+padding: 0;
+margin: 1.6em 0;
+display: grid;
+gap: 14px;
+}
+
+.check-list li {
+display: flex;
+gap: 12px;
+align-items: flex-start;
+color: var(--ink-300);
+font-size: .95rem;
+}
+
+.check-list li svg {
+flex-shrink: 0;
+width: 22px;
+height: 22px;
+margin-top: 2px;
+}
+
+/* DISCORD CTA */
+.discord-section {
+padding: 60px 0;
+}
+
+.pricing-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 20px;
+margin-top: 2em;
+}
+
+@media (min-width: 640px) {
+.pricing-grid {
+grid-template-columns: 1fr 1fr;
+}
+}
+
+.discord-card {
+border: 1px solid var(--navy-600);
+background: var(--navy-800);
+border-radius: 16px;
+padding: 34px 28px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.discord-card.premium {
+border-color: var(--gold-400);
+background: linear-gradient(160deg, rgba(227, 180, 84, .08), var(--navy-800));
+}
+
+.discord-card ul {
+padding-left: 0;
+list-style: none;
+margin: 1.3em 0;
+display: grid;
+gap: 10px;
+}
+
+.discord-card ul li {
+padding-left: 1.5em;
+position: relative;
+color: var(--ink-300);
+font-size: .95rem;
+}
+
+.discord-card ul li::before {
+content: '';
+position: absolute;
+left: 0;
+top: .55em;
+width: 6px;
+height: 6px;
+background: var(--gold-400);
+border-radius: 50%;
+}
+
+.price-tag {
+font-family: var(--serif);
+font-size: 2rem;
+color: var(--gold-300);
+margin: .5em 0;
+}
+
+.price-tag span {
+font-family: var(--sans);
+font-size: .85rem;
+color: var(--ink-400);
+font-weight: 600;
+}
+
+/* CONTACT SECTION */
+.contact-card {
+background: var(--navy-800);
+border: 1px solid var(--navy-700);
+border-radius: 12px;
+padding: 24px;
+display: grid;
+grid-template-columns: 1fr;
+gap: 20px;
+margin-top: 1.5em;
+}
+
+@media (min-width: 560px) {
+.contact-card { grid-template-columns: 1fr 1fr; }
+}
+
+.contact-item {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+.contact-item strong {
+display: block;
+color: var(--gold-300);
+font-size: 0.95rem;
+}
+
+.legal-content h4 { color: var(--gold-300); font-size: 0.98rem; margin-top: 1.4em; margin-bottom: 4px; }
+.legal-content p { font-size: 0.88rem; line-height: 1.65; color: var(--ink-400); }
+.conclusion { padding: 56px 0 90px; }
+.sign-off { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--gold-300); margin: 0; }
+
+/* SCROLL TO TOP BUTTON */
+.scroll-top-btn {
+position: fixed;
+bottom: 24px;
+right: 24px;
+z-index: 99;
+width: 44px;
+height: 44px;
+border-radius: 50%;
+background: rgba(23, 30, 46, 0.85);
+border: 1px solid var(--gold-400);
+color: var(--gold-300);
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+backdrop-filter: blur(8px);
+box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-top-btn:hover {
+background: var(--gold-400);
+color: var(--navy-950);
+transform: translateY(-4px);
+box-shadow: 0 6px 20px rgba(227, 180, 84, 0.4);
+}
+
+.scroll-top-btn.visible {
+opacity: 1;
+visibility: visible;
+}
+
+.scroll-top-btn svg {
+width: 20px;
+height: 20px;
+}
+</style>
+<script>
+function switchLang(lang) {
+if (lang === 'en') {
+document.body.classList.add('en-active');
+document.getElementById('btn-en').classList.add('active');
+document.getElementById('btn-fr').classList.remove('active');
+} else {
+document.body.classList.remove('en-active');
+document.getElementById('btn-fr').classList.add('active');
+document.getElementById('btn-en').classList.remove('active');
+}
+}
+function scrollToTop() {
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function checkScroll() {
+var btn = document.getElementById('scrollTopBtn');
+if (btn) {
+if (window.scrollY > 200 || document.documentElement.scrollTop > 200) {
+btn.classList.add('visible');
+} else {
+btn.classList.remove('visible');
+}
+}
+}
+window.addEventListener('scroll', checkScroll);
+document.addEventListener('DOMContentLoaded', checkScroll);
+</script>
 </head>
 
 <body>
 
-  <header class="hero">
-    <div class="lang-toggle">
-      <button id="btn-fr" class="active" onclick="switchLang('fr')">FR</button>
-      <button id="btn-en" onclick="switchLang('en')">EN</button>
-    </div>
-    <svg class="hero-chart-svg" viewBox="0 0 800 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="chart-area" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#E3B454" stop-opacity=".55" />
-          <stop offset="100%" stop-color="#E3B454" stop-opacity="0" />
-        </linearGradient>
-        <marker id="chart-arrow" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L10,5 L0,10 Z" fill="#E3B454" />
-        </marker>
-      </defs>
-      <path
-        class="chart-area"
-        d="M0,240 L55,205 L105,218 L160,175 L210,188 L265,145 L315,158 L370,115 L420,130 L475,92 L525,108 L580,73 L630,88 L685,53 L745,70 L800,22 L800,300 L0,300 Z" />
-      <path
-        class="chart-echo"
-        d="M0,252 L55,217 L105,230 L160,187 L210,200 L265,157 L315,170 L370,127 L420,142 L475,104 L525,120 L580,85 L630,100 L685,65 L745,82 L800,34"
-        fill="none"
-        stroke="#EFCB7E"
-        stroke-width="1"
-        opacity=".35" />
-      <path
-        class="chart-line"
-        d="M0,240 L55,205 L105,218 L160,175 L210,188 L265,145 L315,158 L370,115 L420,130 L475,92 L525,108 L580,73 L630,88 L685,53 L745,70 L800,22"
-        fill="none"
-        stroke="#E3B454"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        marker-end="url(#chart-arrow)" />
-      <circle class="chart-dot" cx="800" cy="22" r="4" />
-    </svg>
+<header class="hero">
+<div class="lang-toggle">
+<button id="btn-fr" class="active" onclick="switchLang('fr')">FR</button>
+<button id="btn-en" onclick="switchLang('en')">EN</button>
+</div>
 
-    <div class="wrap hero-content">
-      <h1>L'Arsenal Mécanique <span>by M.Chakib</span></h1>
+<!-- ANIMATION COURBE NÉON ROUGE -> VERT -->
+<svg class="hero-chart-svg" viewBox="0 0 1000 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="trendGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#E8636B" /> <!-- Rouge Bear -->
+<stop offset="35%" stop-color="#E3B454" /> <!-- Or Consolidation -->
+<stop offset="100%" stop-color="#3DD68C" /> <!-- Vert Bull run -->
+</linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+<feGaussianBlur stdDeviation="5" result="blur" />
+<feMerge>
+<feMergeNode in="blur" />
+<feMergeNode in="SourceGraphic" />
+</feMerge>
+</filter>
+</defs>
+<path class="chart-path" d="M -50 350 L 150 310 L 250 360 L 400 270 L 500 300 L 650 120 L 750 150 L 1050 -100" fill="none" stroke="url(#trendGrad)" stroke-width="4" filter="url(#glow)"/>
+</svg>
 
-      <p class="hero-sub lang fr">Masterclass Trading : Deux stratégies mécaniques, de A à Z</p>
-      <p class="hero-sub lang en">Trading Masterclass: Two mechanical strategies from A to Z</p>
+<!-- PLUIE DE BILLETS -->
+<div class="money-rain">
+<span style="--delay: 3.5s; --left: 65%;">💸</span>
+<span style="--delay: 3.7s; --left: 75%;">💰</span>
+<span style="--delay: 3.4s; --left: 85%;">🪙</span>
+<span style="--delay: 3.8s; --left: 90%;">💵</span>
+<span style="--delay: 3.6s; --left: 80%;">💸</span>
+<span style="--delay: 3.9s; --left: 95%;">💰</span>
+</div>
 
-      <p class="hero-hook lang fr">On va pas se mentir : t'as pas payé pour un cours magistral qui t'endort avec de la
-        théorie inutile. Alors on rentre dans le dur, tout de suite. Le but de ce site n'est pas de tout te dévoiler,
-        mais de te montrer la logique imparable derrière mes exécutions. Si tu es prêt à passer à l'action, la
-        Masterclass complète t'attend à la fin.</p>
-      <p class="hero-hook lang en">Let's be honest: you didn't pay for a boring lecture full of useless theory. We are
-        getting straight to the point. The goal of this site isn't to give everything away, but to show you the flawless
-        logic behind my executions. If you're ready to take action, the complete Masterclass awaits you at the end.</p>
+<div class="wrap hero-content">
+<h1>L'Arsenal Mécanique <span>by M.Chakib</span></h1>
 
-      <ul class="hero-list lang fr">
-        <li>Les bases du trading et l'importance de la session US</li>
-        <li>Les mots clés techniques (Liquidité, FVG, iFVG, MSS)</li>
-        <li>La présentation de mes 2 stratégies phares (Sweep & Open US)</li>
-        <li>Les règles de Risk Management pour survivre</li>
-      </ul>
-      <ul class="hero-list lang en">
-        <li>Trading basics and the importance of the US session</li>
-        <li>Technical keywords (Liquidity, FVG, iFVG, MSS)</li>
-        <li>Introduction to my 2 flagship strategies (Sweep & Open US)</li>
-        <li>Risk Management rules for survival</li>
-      </ul>
+<p class="hero-sub lang fr">Masterclass Trading : Deux stratégies mécaniques, de A à Z</p>
+<p class="hero-sub lang en">Trading Masterclass: Two mechanical strategies from A to Z</p>
 
-      <a href="#offres" class="btn-primary" style="display: inline-block; width: auto;">
-        <span class="lang fr">Voir les offres</span>
-        <span class="lang en">View Offers</span>
-      </a>
-    </div>
-  </header>
+<p class="hero-hook lang fr">On va pas se mentir : t'as pas payé pour un cours magistral qui t'endort avec de la
+théorie inutile. Alors on rentre dans le dur, tout de suite. Le but de ce site n'est pas de tout te dévoiler,
+mais de te montrer la logique imparable derrière mes exécutions. Si tu es prêt à passer à l'action, la
+Masterclass complète t'attend à la fin.</p>
+<p class="hero-hook lang en">Let's be honest: you didn't pay for a boring lecture full of useless theory. We are
+getting straight to the point. The goal of this site isn't to give everything away, but to show you the flawless
+logic behind my executions. If you're ready to take action, the complete Masterclass awaits you at the end.</p>
 
-  <nav class="toc">
-    <div class="toc-inner">
-      <a href="#histoire">
-        <span class="lang fr">Mon Histoire</span>
-        <span class="lang en">My Story</span>
-      </a>
-      <a href="#bases">
-        <span class="lang fr">Bases</span>
-        <span class="lang en">Basics</span>
-      </a>
-      <a href="#sessions">Sessions</a>
-      <a href="#strat1">
-        <span class="lang fr">Stratégie #1</span>
-        <span class="lang en">Strategy #1</span>
-      </a>
-      <a href="#strat2">
-        <span class="lang fr">Stratégie #2</span>
-        <span class="lang en">Strategy #2</span>
-      </a>
-      <a href="#payouts">Payouts</a>
-      <a href="#risk">Risk Management</a>
-      <a href="#offres">
-        <span class="lang fr">Accompagnement VIP</span>
-        <span class="lang en">VIP Coaching</span>
-      </a>
-      <a href="#contact">Contact</a>
-      <a href="#mentions-legales">
-        <span class="lang fr">Mentions Légales</span>
-        <span class="lang en">Legal Notice</span>
-      </a>
-    </div>
-  </nav>
+<ul class="hero-list lang fr">
+<li>Les bases du trading et l'importance de la session US</li>
+<li>Les mots clés techniques (Liquidité, FVG, iFVG, MSS)</li>
+<li>La présentation de mes 2 stratégies phares (Sweep & Open US)</li>
+<li>Les règles de Risk Management pour survivre</li>
+</ul>
+<ul class="hero-list lang en">
+<li>Trading basics and the importance of the US session</li>
+<li>Technical keywords (Liquidity, FVG, iFVG, MSS)</li>
+<li>Introduction to my 2 flagship strategies (Sweep & Open US)</li>
+<li>Risk Management rules for survival</li>
+</ul>
 
-  <main>
+<a href="#offres" class="btn-primary" style="display: inline-block; width: auto;">
+<span class="lang fr">Voir les offres</span>
+<span class="lang en">View Offers</span>
+</a>
+</div>
+</header>
 
-    <section id="histoire" class="section">
-      <div class="wrap">
-        <div class="lang fr">
-          <h2>1. De l'arnaque Telegram aux retraits à 5 chiffres</h2>
-          <div class="story-card">
-            <p>En janvier 2026, j'ai commencé exactement là où beaucoup échouent. J'avais économisé pendant des mois
-              pour mettre 900 € de côté. Attiré par les promesses d'un groupe Telegram qui vendait du rêve, j'ai investi
-              500 € de fonds propres sans même savoir comment fonctionnait le marché. Je ne connaissais pas du tout les
-              Prop Firms à l'époque.</p>
-            <p>Sans surprise, c'était un désastre. Les signaux tombaient au hasard : à 2h du matin, 8h, 15h, 19h... 10
-              trades par jour, tous perdants, avec un ratio risque/récompense négatif. J'ai tout perdu.</p>
-            <p>C'est là que j'ai décidé de comprendre <em>pourquoi</em> je perdais. J'ai étudié seul pendant des mois.
-              J'ai découvert les Prop Firms et j'ai compris la plus grande leçon : il n'y a pas de minimum pour réussir,
-              il suffit d'avoir la connaissance. J'ai cramé plusieurs comptes à vouloir apprendre seul.</p>
-            <p>Jusqu'en avril 2026. J'ai commencé à trader avec ma propre stratégie basée sur les iFVG. Le <strong>27
-                mai 2026</strong> est une date que je n'oublierai jamais : mon premier payout. 2 500 $ virés directement
-              sur mon compte. J'ai pleuré, car personne ne voyait le parcours et les sacrifices invisibles derrière ce
-              virement.</p>
-            <p>Aujourd'hui, je cumule plus de 10 000 $ de retraits (payouts). Si j'ai créé cette formation et ce suivi,
-              c'est pour vous éviter ces pertes inutiles et vous donner le plan de bataille direct.</p>
-          </div>
-        </div>
+<nav class="toc">
+<div class="toc-inner">
+<a href="#histoire"><span class="lang fr">Mon Histoire</span><span class="lang en">My Story</span></a>
+<a href="#bases"><span class="lang fr">Bases</span><span class="lang en">Basics</span></a>
+<a href="#sessions">Sessions</a>
+<a href="#strat1"><span class="lang fr">Stratégie #1</span><span class="lang en">Strategy #1</span></a>
+<a href="#strat2"><span class="lang fr">Stratégie #2</span><span class="lang en">Strategy #2</span></a>
+<a href="#payouts">Payouts</a>
+<a href="#risk">Risk Management</a>
+<a href="#offres"><span class="lang fr">Accompagnement VIP</span><span class="lang en">VIP Coaching</span></a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
 
-        <div class="lang en">
-          <h2>1. From a Telegram scam to 5-figure payouts</h2>
-          <div class="story-card">
-            <p>In January 2026, I started exactly where many fail. I had saved for months to put aside 900€. Lured by
-              the promises of a Telegram group selling dreams, I invested 500€ of my own funds without even knowing how
-              the market worked. I had no idea what Prop Firms were at the time.</p>
-            <p>Unsurprisingly, it was a disaster. Signals dropped randomly: at 2 AM, 8 AM, 3 PM, 7 PM... 10 trades a
-              day, all losers, with a negative risk/reward ratio. I lost everything.</p>
-            <p>That's when I decided to understand <em>why</em> I was losing. I studied alone for months. I discovered
-              Prop Firms and learned the biggest lesson: you don't need huge capital to succeed, you just need
-              knowledge. I blew several accounts trying to teach myself.</p>
-            <p>Until April 2026. I started trading with my own strategy based on iFVGs. <strong>May 27, 2026</strong>,
-              is a date I will never forget: my first payout. $2,500 wired directly to my account. I cried, because no
-              one saw the journey and the unseen sacrifices behind that transfer.</p>
-            <p>Today, I have accumulated over $10,000 in payouts. I created this training and coaching specifically to
-              save you from useless losses and give you the direct battle plan.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<main>
 
-    <section id="bases" class="section">
-      <div class="wrap">
-        <div class="lang fr">
-          <h2>2. La logique institutionnelle</h2>
-          <p><strong>Pourquoi le prix bouge ?</strong> Parce qu'il y a un rapport de force entre acheteurs et vendeurs.
-            Les gros joueurs (banques, fonds) déplacent des volumes énormes. Ils ne peuvent pas juste "acheter au
-            marché" sans faire exploser le prix contre eux. Ils ont besoin de <strong>liquidité</strong> pour rentrer et
-            sortir proprement.</p>
-          <p>Toute ma méthode consiste à repérer OÙ ces gros joueurs vont chercher cette liquidité, pour se positionner
-            dans leur sillage. La liquidité, ce n'est rien d'autre que les Stop-Loss des traders particuliers.</p>
-        </div>
+<section id="histoire" class="section">
+<div class="wrap">
+<div class="lang fr">
+<h2>1. De l'arnaque Telegram aux retraits à 5 chiffres</h2>
+<div class="story-card">
+<p>En janvier 2026, j'ai commencé exactement là où beaucoup échouent. J'avais économisé pendant des mois
+pour mettre 900 € de côté. Attiré par les promesses d'un groupe Telegram qui vendait du rêve, j'ai investi
+500 € de fonds propres sans même savoir comment fonctionnait le marché. Je ne connaissais pas du tout les
+Prop Firms à l'époque.</p>
+<p>Sans surprise, c'était un désastre. Les signaux tombaient au hasard : à 2h du matin, 8h, 15h, 19h... 10
+trades par jour, tous perdants, avec un ratio risque/récompense négatif. J'ai tout perdu.</p>
+<p>C'est là que j'ai décidé de comprendre <em>pourquoi</em> je perdais. J'ai étudié seul pendant des mois.
+J'ai découvert les Prop Firms et j'ai compris la plus grande leçon : il n'y a pas de minimum pour réussir,
+il suffit d'avoir la connaissance. J'ai cramé plusieurs comptes à vouloir apprendre seul.</p>
+<p>Jusqu'en avril 2026. J'ai commencé à trader avec ma propre stratégie basée sur les iFVG. Le <strong>27
+mai 2026</strong> est une date que je n'oublierai jamais : mon premier payout. 2 500 $ virés directement
+sur mon compte. J'ai pleuré, car personne ne voyait le parcours et les sacrifices invisibles derrière ce
+virement.</p>
+<p>Aujourd'hui, je cumule plus de 10 000 $ de retraits (payouts). Si j'ai créé cette formation et ce suivi,
+c'est pour vous éviter ces pertes inutiles et vous donner le plan de bataille direct.</p>
+</div>
+</div>
 
-        <div class="lang en">
-          <h2>2. The institutional logic</h2>
-          <p><strong>Why does the price move?</strong> Because there is a balance of power between buyers and sellers.
-            Big players (banks, funds) move massive volumes. They can't just "buy at the market" without skyrocketing
-            the price against themselves. They need <strong>liquidity</strong> to enter and exit cleanly.</p>
-          <p>My entire method consists of finding WHERE these big players look for this liquidity, to position ourselves
-            in their wake. Liquidity is nothing more than the Stop-Losses of retail traders.</p>
-        </div>
-      </div>
-    </section>
+<div class="lang en">
+<h2>1. From a Telegram scam to 5-figure payouts</h2>
+<div class="story-card">
+<p>In January 2026, I started exactly where many fail. I had saved for months to put aside 900€. Lured by
+the promises of a Telegram group selling dreams, I invested 500€ of my own funds without even knowing how
+the market worked. I had no idea what Prop Firms were at the time.</p>
+<p>Unsurprisingly, it was a disaster. Signals dropped randomly: at 2 AM, 8 AM, 3 PM, 7 PM... 10 trades a
+day, all losers, with a negative risk/reward ratio. I lost everything.</p>
+<p>That's when I decided to understand <em>why</em> I was losing. I studied alone for months. I discovered
+Prop Firms and learned the biggest lesson: you don't need huge capital to succeed, you just need
+knowledge. I blew several accounts trying to teach myself.</p>
+<p>Until April 2026. I started trading with my own strategy based on iFVGs. <strong>May 27, 2026</strong>,
+is a date I will never forget: my first payout. $2,500 wired directly to my account. I cried, because no
+one saw the journey and the unseen sacrifices behind that transfer.</p>
+<p>Today, I have accumulated over $10,000 in payouts. I created this training and coaching specifically to
+save you from useless losses and give you the direct battle plan.</p>
+</div>
+</div>
+</div>
+</section>
 
-    <section id="sessions" class="section">
-      <div class="wrap">
-        <div class="lang fr">
-          <h2>3. Pourquoi je ne touche QUE la session US</h2>
-        </div>
-        <div class="lang en">
-          <h2>3. Why I ONLY trade the US session</h2>
-        </div>
+<section id="bases" class="section">
+<div class="wrap">
+<div class="lang fr">
+<h2>2. La logique institutionnelle</h2>
+<p><strong>Pourquoi le prix bouge ?</strong> Parce qu'il y a un rapport de force entre acheteurs et vendeurs.
+Les gros joueurs (banques, fonds) déplacent des volumes énormes. Ils ne peuvent pas juste "acheter au
+marché" sans faire exploser le prix contre eux. Ils ont besoin de <strong>liquidité</strong> pour rentrer et
+sortir proprement.</p>
+<p>Toute ma méthode consiste à repérer OÙ ces gros joueurs vont chercher cette liquidité, pour se positionner
+dans leur sillage. La liquidité, ce n'est rien d'autre que les Stop-Loss des traders particuliers.</p>
+</div>
 
-        <div class="timeline-track">
-          <div class="segment">
-            <div class="seg-name">🌏 <span class="lang fr">Asie</span><span class="lang en">Asia</span></div>
-            <span class="seg-time">~01h00 – 09h00</span>
-            <p class="seg-desc lang fr">Volume faible sur les indices US, souvent un range calme.</p>
-            <p class="seg-desc lang en">Low volume on US indices, often a calm range.</p>
-          </div>
-          <div class="segment">
-            <div class="seg-name">🇬🇧 <span class="lang fr">Londres</span><span class="lang en">London</span></div>
-            <span class="seg-time">~09h00 – 17h30</span>
-            <p class="seg-desc lang fr">La volatilité monte, souvent la première manipulation.</p>
-            <p class="seg-desc lang en">Volatility rises, often the first manipulation.</p>
-          </div>
-          <div class="segment us">
-            <div class="seg-name">🇺🇸 US / New York</div>
-            <span class="seg-time">~15h30 – 22h00</span>
-            <p class="seg-desc lang fr">Le gros du volume et de la volatilité, mon seul terrain de chasse.</p>
-            <p class="seg-desc lang en">The bulk of the volume and volatility, my only hunting ground.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="lang en">
+<h2>2. The institutional logic</h2>
+<p><strong>Why does the price move?</strong> Because there is a balance of power between buyers and sellers.
+Big players (banks, funds) move massive volumes. They can't just "buy at the market" without skyrocketing
+the price against themselves. They need <strong>liquidity</strong> to enter and exit cleanly.</p>
+<p>My entire method consists of finding WHERE these big players look for this liquidity, to position ourselves
+in their wake. Liquidity is nothing more than the Stop-Losses of retail traders.</p>
+</div>
+</div>
+</section>
 
-    <!-- TEASING STRATÉGIE 1 -->
-    <section id="strat1" class="section">
-      <div class="wrap">
-        <div class="lang fr">
-          <h2>4. Stratégie #1 : "Sweep & Inversion" (68% Win Rate)</h2>
-          <p>C'est le moteur de ma rentabilité. Cette stratégie est purement MÉCANIQUE. Dans le PDF de la Masterclass,
-            je te dévoile le protocole d'exécution complet. Tu ne cliqueras plus jamais au hasard.</p>
+<section id="sessions" class="section">
+<div class="wrap">
+<div class="lang fr">
+<h2>3. Pourquoi je ne touche QUE la session US</h2>
+</div>
+<div class="lang en">
+<h2>3. Why I ONLY trade the US session</h2>
+</div>
 
-          <div class="teasing-list">
-            <h3>Ce que tu vas apprendre dans le PDF :</h3>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Le setup mécanique en <strong>5 étapes strictes</strong> (si un élément manque, on ne trade
-                  pas).</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Comment filtrer les faux signaux et valider un véritable <em>Market Structure Shift</em>
-                  (MSS).</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Le placement exact de ton ordre d'entrée sur l'iFVG, au millimètre près.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Où placer ton Stop Loss et Take Profit pour garantir un ratio Risque/Récompense
-                  explosif.</span></li>
-            </ul>
-          </div>
-        </div>
+<div class="timeline-track">
+<div class="segment">
+<div class="seg-name">🌏 <span class="lang fr">Asie</span><span class="lang en">Asia</span></div>
+<span class="seg-time">~01h00 – 09h00</span>
+<p class="seg-desc lang fr">Volume faible sur les indices US, souvent un range calme.</p>
+<p class="seg-desc lang en">Low volume on US indices, often a calm range.</p>
+</div>
+<div class="segment">
+<div class="seg-name">🇬🇧 <span class="lang fr">Londres</span><span class="lang en">London</span></div>
+<span class="seg-time">~09h00 – 17h30</span>
+<p class="seg-desc lang fr">La volatilité monte, souvent la première manipulation.</p>
+<p class="seg-desc lang en">Volatility rises, often the first manipulation.</p>
+</div>
+<div class="segment us">
+<div class="seg-name">🇺🇸 US / New York</div>
+<span class="seg-time">~15h30 – 22h00</span>
+<p class="seg-desc lang fr">Le gros du volume et de la volatilité, mon seul terrain de chasse.</p>
+<p class="seg-desc lang en">The bulk of the volume and volatility, my only hunting ground.</p>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="lang en">
-          <h2>4. Strategy #1: "Sweep & Inversion" (68% Win Rate)</h2>
-          <p>This is the engine of my profitability. This strategy is purely MECHANICAL. In the Masterclass PDF, I
-            reveal the complete execution protocol. You will never click randomly again.</p>
+<section id="strat1" class="section">
+<div class="wrap">
+<div class="lang fr">
+<h2>4. Stratégie #1 : "Sweep & Inversion" (68% Win Rate)</h2>
+<p>C'est le moteur de ma rentabilité. Cette stratégie est purement MÉCANIQUE. Dans le PDF de la Masterclass,
+je te dévoile le protocole d'exécution complet. Tu ne cliqueras plus jamais au hasard.</p>
 
-          <div class="teasing-list">
-            <h3>What you will learn in the PDF:</h3>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>The strict <strong>5-step mechanical setup</strong> (if one element is missing, we don't
-                  trade).</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>How to filter fake signals and validate a true <em>Market Structure Shift</em>
-                  (MSS).</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>The exact placement of your entry order on the iFVG, down to the millimeter.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Where to place your Stop Loss and Take Profit to guarantee an explosive Risk/Reward
-                  ratio.</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="teasing-list">
+<h3>Ce que tu vas apprendre dans le PDF :</h3>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Le setup mécanique en <strong>5 étapes strictes</strong> (si un élément manque, on ne trade pas).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Comment filtrer les faux signaux et valider un véritable <em>Market Structure Shift</em> (MSS).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Le placement exact de ton ordre d'entrée sur l'iFVG, au millimètre près.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Où placer ton Stop Loss et Take Profit pour garantir un ratio Risque/Récompense explosif.</span></li>
+</ul>
+</div>
+</div>
 
-    <!-- TEASING STRATÉGIE 2 -->
-    <section id="strat2" class="section">
-      <div class="wrap">
-        <div class="lang fr">
-          <h2>5. Stratégie #2 : "Open US & News Reversal"</h2>
-          <p>À 15h30 ou lors d'une annonce économique majeure, le marché devient fou. C'est là que la majorité des
-            débutants crament leur compte. Dans la formation, tu apprendras à utiliser cette volatilité à ton avantage.
-          </p>
+<div class="lang en">
+<h2>4. Strategy #1: "Sweep & Inversion" (68% Win Rate)</h2>
+<p>This is the engine of my profitability. This strategy is purely MECHANICAL. In the Masterclass PDF, I
+reveal the complete execution protocol. You will never click randomly again.</p>
 
-          <div class="teasing-list">
-            <h3>Ce que tu vas apprendre dans le PDF :</h3>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Comment lire et anticiper la mèche de manipulation de l'ouverture (US Open Wick).</span>
-              </li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>Le concept de <strong>"L'Aimant Temporel"</strong> pour savoir exactement sur quel niveau
-                  le prix va s'épuiser.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>L'entrée au scalpel en 1 minute pour surfer le retournement complet du marché.</span></li>
-            </ul>
-          </div>
-        </div>
+<div class="teasing-list">
+<h3>What you will learn in the PDF:</h3>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>The strict <strong>5-step mechanical setup</strong> (if one element is missing, we don't trade).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>How to filter fake signals and validate a true <em>Market Structure Shift</em> (MSS).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>The exact placement of your entry order on the iFVG, down to the millimeter.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Where to place your Stop Loss and Take Profit to guarantee an explosive Risk/Reward ratio.</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="lang en">
-          <h2>5. Strategy #2: "Open US & News Reversal"</h2>
-          <p>At 9:30 AM EST or during major economic news, the market goes crazy. This is where most beginners blow
-            their accounts. In the training, you'll learn how to use this volatility to your advantage.</p>
+<section id="strat2" class="section">
+<div class="wrap">
+<div class="lang fr">
+<h2>5. Stratégie #2 : "Open US & News Reversal"</h2>
+<p>À 15h30 ou lors d'une annonce économique majeure, le marché devient fou. C'est là que la majorité des
+débutants crament leur compte. Dans la formation, tu apprendras à utiliser cette volatilité à ton avantage.
+</p>
 
-          <div class="teasing-list">
-            <h3>What you will learn in the PDF:</h3>
-            <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>How to read and anticipate the opening manipulation wick (US Open Wick).</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>The <strong>"Time Magnet"</strong> concept to know exactly on which level the price will
-                  exhaust itself.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> <span>The 1-minute scalpel entry to ride the complete market reversal.</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="teasing-list">
+<h3>Ce que tu vas apprendre dans le PDF :</h3>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Comment lire et anticiper la mèche de manipulation de l'ouverture (US Open Wick).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Le concept de <strong>"L'Aimant Temporel"</strong> pour savoir exactement sur quel niveau le prix va s'épuiser.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>L'entrée au scalpel en 1 minute pour surfer le retournement complet du marché.</span></li>
+</ul>
+</div>
+</div>
 
-    <!-- SECTION PAYOUTS -->
-    <section id="payouts" class="section">
-      <div class="wrap">
-        <h2 class="lang fr">6. Les résultats (Mes Payouts)</h2>
-        <h2 class="lang en">6. The Results (My Payouts)</h2>
+<div class="lang en">
+<h2>5. Strategy #2: "Open US & News Reversal"</h2>
+<p>At 9:30 AM EST or during major economic news, the market goes crazy. This is where most beginners blow
+their accounts. In the training, you'll learn how to use this volatility to your advantage.</p>
 
-        <p class="lang fr">Je ne te vends pas une méthode magique, je te partage ce que j'utilise au quotidien pour
-          valider et retirer mes profits sur les Prop Firms. Voici les preuves que l'exécution stricte finit toujours
-          par payer.</p>
-        <p class="lang en">I am not selling you a magic method, I am sharing what I use daily to pass challenges and
-          withdraw profits from Prop Firms. Here is the proof that strict execution always pays off.</p>
+<div class="teasing-list">
+<h3>What you will learn in the PDF:</h3>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>How to read and anticipate the opening manipulation wick (US Open Wick).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>The <strong>"Time Magnet"</strong> concept to know exactly on which level the price will exhaust itself.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>The 1-minute scalpel entry to ride the complete market reversal.</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="payout-grid">
-          <div class="payout-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-            </svg>
-            <div class="payout-firm">Topstep</div>
-            <div class="payout-amount">[ 3 014 $ ]</div>
-            <div class="payout-subtext">(1580$ + 1434$)</div>
-            <div class="payout-date lang fr">Payout validé</div>
-            <div class="payout-date lang en">Payout Validated</div>
-          </div>
+<!-- SECTION PAYOUTS (CADRE GLOBAL VERROUILLÉ) -->
+<section id="payouts" class="section">
+<div class="wrap">
+<h2 class="lang fr">6. Les résultats (Mes Payouts)</h2>
+<h2 class="lang en">6. The Results (My Payouts)</h2>
 
-          <div class="payout-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-            </svg>
-            <div class="payout-firm">Lucid</div>
-            <div class="payout-amount">[ 9 253 $ ]</div>
-            <div class="payout-subtext">(2500$ + 1753$ + 3500$ + 1500$)</div>
-            <div class="payout-date lang fr">Certificats reçus</div>
-            <div class="payout-date lang en">Certificates Received</div>
-          </div>
+<p class="lang fr">Je ne te vends pas une méthode magique, je te partage ce que j'utilise au quotidien pour
+valider et retirer mes profits sur les Prop Firms. Voici les preuves que l'exécution stricte finit toujours
+par payer.</p>
+<p class="lang en">I am not selling you a magic method, I am sharing what I use daily to pass challenges and
+withdraw profits from Prop Firms. Here is the proof that strict execution always pays off.</p>
 
-          <div class="payout-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-            </svg>
-            <div class="payout-firm">FundedNext</div>
-            <div class="payout-amount">[ 694.80 $ ]</div>
-            <div class="payout-date lang fr">Retrait confirmé</div>
-            <div class="payout-date lang en">Withdrawal Confirmed</div>
-          </div>
-        </div>
+<!-- MASTER FRAME -->
+<div class="payouts-master-frame">
+<div class="payout-grid">
+<div class="payout-card">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+<div class="payout-firm">Topstep</div>
+<div class="payout-amount">[ 3 014 $ ]</div>
+<div class="payout-subtext">(1580$ + 1434$)</div>
+<div class="payout-date lang fr">Payout validé</div>
+<div class="payout-date lang en">Payout Validated</div>
+</div>
 
-        <p class="proof-label lang fr">Captures d'écran &amp; certificats originaux</p>
-        <p class="proof-label lang en">Original screenshots &amp; certificates</p>
+<div class="payout-card">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+<div class="payout-firm">Lucid</div>
+<div class="payout-amount">[ 9 253 $ ]</div>
+<div class="payout-subtext">(2500$ + 1753$ + 3500$ + 1500$)</div>
+<div class="payout-date lang fr">Certificats reçus</div>
+<div class="payout-date lang en">Certificates Received</div>
+</div>
 
-        <div class="proof-grid">
-          <div class="proof-card">
-            <img src="images/payouts/topstep-1580.jpg" alt="Topstep - Proof of Payout - $1,580 - 27 Feb 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Topstep &middot; 27/02/2026</span><strong>1 580 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/topstep-1434.jpg" alt="Topstep - Proof of Payout - $1,434 - 28 Aug 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Topstep &middot; 28/08/2026</span><strong>1 434 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/lucid-2500.jpg" alt="Lucid Trading - Payout Certificate - $2,500 - 26 May 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Lucid Trading &middot; 26/05/2026</span><strong>2 500 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/lucid-3500.jpg" alt="Lucid Trading - Payout Certificate - $3,500 - 30 June 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Lucid Trading &middot; 30/06/2026</span><strong>3 500 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/lucid-1500.jpg" alt="Lucid Trading - Payout Certificate - $1,500 - 12 Aug 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Lucid Trading &middot; 12/08/2026</span><strong>1 500 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/lucid-1753.jpg" alt="Lucid Trading - Payout Certificate - $1,753 - 14 Aug 2026"
-              loading="lazy" onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>Lucid Trading &middot; 14/08/2026</span><strong>1 753 $</strong></div>
-          </div>
-          <div class="proof-card">
-            <img src="images/payouts/fundednext-694.jpg"
-              alt="FundedNext Futures - Certificate of Appreciation - $694.80" loading="lazy"
-              onclick="openLightbox(this.src)">
-            <div class="proof-caption"><span>FundedNext &middot; 05/09/2026</span><strong>694.80 $</strong></div>
-          </div>
-        </div>
-        <p class="lang fr" style="font-size:.82rem;color:var(--ink-400);font-style:italic;">Clique sur une capture pour
-          l'agrandir.</p>
-        <p class="lang en" style="font-size:.82rem;color:var(--ink-400);font-style:italic;">Click a screenshot to
-          enlarge it.</p>
-      </div>
-    </section>
+<div class="payout-card">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+<div class="payout-firm">FundedNext</div>
+<div class="payout-amount">[ 694.80 $ ]</div>
+<div class="payout-date lang fr">Retrait confirmé</div>
+<div class="payout-date lang en">Withdrawal Confirmed</div>
+</div>
+</div>
 
-    <section id="risk" class="section">
-      <div class="wrap">
-        <h2 class="lang fr">7. Risk Management : Les règles non négociables</h2>
-        <h2 class="lang en">7. Risk Management: Non-negotiable rules</h2>
+<p class="proof-label lang fr">Captures d'écran &amp; certificats originaux</p>
+<p class="proof-label lang en">Original screenshots &amp; certificates</p>
 
-        <p class="lang fr">Une bonne stratégie sans gestion du risque, c'est un compte qui explose tôt ou tard.</p>
-        <p class="lang en">A good strategy without risk management means a blown account sooner or later.</p>
+<div class="proof-grid">
+<div class="proof-card">
+<img src="images/payouts/topstep-1580.jpg" alt="Topstep - Proof of Payout - $1,580 - 27 Feb 2026" loading="lazy">
+<div class="proof-caption"><span>Topstep &middot; 27/02/2026</span><strong>1 580 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/topstep-1434.jpg" alt="Topstep - Proof of Payout - $1,434 - 28 Aug 2026" loading="lazy">
+<div class="proof-caption"><span>Topstep &middot; 28/08/2026</span><strong>1 434 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/lucid-2500.jpg" alt="Lucid Trading - Payout Certificate - $2,500 - 26 May 2026" loading="lazy">
+<div class="proof-caption"><span>Lucid Trading &middot; 26/05/2026</span><strong>2 500 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/lucid-3500.jpg" alt="Lucid Trading - Payout Certificate - $3,500 - 30 June 2026" loading="lazy">
+<div class="proof-caption"><span>Lucid Trading &middot; 30/06/2026</span><strong>3 500 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/lucid-1500.jpg" alt="Lucid Trading - Payout Certificate - $1,500 - 12 Aug 2026" loading="lazy">
+<div class="proof-caption"><span>Lucid Trading &middot; 12/08/2026</span><strong>1 500 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/lucid-1753.jpg" alt="Lucid Trading - Payout Certificate - $1,753 - 14 Aug 2026" loading="lazy">
+<div class="proof-caption"><span>Lucid Trading &middot; 14/08/2026</span><strong>1 753 $</strong></div>
+</div>
+<div class="proof-card">
+<img src="images/payouts/fundednext-694.jpg" alt="FundedNext Futures - Certificate of Appreciation - $694.80" loading="lazy">
+<div class="proof-caption"><span>FundedNext &middot; 05/09/2026</span><strong>694.80 $</strong></div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        <ul class="check-list lang fr">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>Jamais plus de 1% du compte par trade.</strong> (0.5% si tu es en Prop Firm).</span>
-          </li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>Le stop loss se place AVANT d'entrer.</strong> Pas d'invalidation = c'est un pari. Tu ne
-              le bouges JAMAIS.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>Un R:R minimum de 1:2.</strong> Avec ça, tu es largement gagnant même en comptant les
-              séries de pertes.</span></li>
-        </ul>
-        <ul class="check-list lang en">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>Never risk more than 1% per trade.</strong> (0.5% if you are in a Prop Firm).</span>
-          </li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>The stop loss is placed BEFORE entering.</strong> No invalidation = it's a gamble. NEVER
-              move it.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" stroke-opacity=".3" />
-              <path d="M8 12l3 3 6-6" />
-            </svg><span><strong>A minimum R:R of 1:2.</strong> With this, you are largely profitable even accounting for
-              losing streaks.</span></li>
-        </ul>
-      </div>
-    </section>
+<section id="risk" class="section">
+<div class="wrap">
+<h2 class="lang fr">7. Risk Management : Les règles non négociables</h2>
+<h2 class="lang en">7. Risk Management: Non-negotiable rules</h2>
 
-    <!-- SECTION OFFRES / BOUTONS DE PAIEMENT -->
-    <section id="offres" class="section discord-section">
-      <div class="wrap">
-        <h2 class="lang fr">Passe à l'action</h2>
-        <h2 class="lang en">Take Action</h2>
+<p class="lang fr">Une bonne stratégie sans gestion du risque, c'est un compte qui explose tôt ou tard.</p>
+<p class="lang en">A good strategy without risk management means a blown account sooner or later.</p>
 
-        <p class="lang fr">Découvre les mécaniques exactes pour rentrer au scalpel et professionnalise ton exécution dès
-          aujourd'hui.</p>
-        <p class="lang en">Discover the exact mechanics for scalpel entries and professionalize your execution today.
-        </p>
+<ul class="check-list lang fr">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>Jamais plus de 1% du compte par trade.</strong> (0.5% si tu es en Prop Firm).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>Le stop loss se place AVANT d'entrer.</strong> Pas d'invalidation = c'est un pari. Tu ne le bouges JAMAIS.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>Un R:R minimum de 1:2.</strong> Avec ça, tu es largement gagnant même en comptant les séries de pertes.</span></li>
+</ul>
+<ul class="check-list lang en">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>Never risk more than 1% per trade.</strong> (0.5% if you are in a Prop Firm).</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>The stop loss is placed BEFORE entering.</strong> No invalidation = it's a gamble. NEVER move it.</span></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity=".3" /><path d="M8 12l3 3 6-6" /></svg><span><strong>A minimum R:R of 1:2.</strong> With this, you are largely profitable even accounting for losing streaks.</span></li>
+</ul>
+</div>
+</section>
 
-        <div class="pricing-grid">
-          <!-- OFFRE FORMATION SEULE -->
-          <div class="discord-card">
-            <div class="lang fr">
-              <h3>La Masterclass (Format PDF)</h3>
-              <p>Le document complet, révélant la checklist exacte et les graphiques annotés de la stratégie.</p>
-              <p class="price-tag">1 000€ <span>/ paiement unique</span></p>
-            </div>
-            <div class="lang en">
-              <h3>The Masterclass (PDF Format)</h3>
-              <p>The complete document, revealing the exact checklist and annotated charts of the strategy.</p>
-              <p class="price-tag">1 000€ <span>/ one-time payment</span></p>
-            </div>
-            <a href="https://wise.com/pay/r/BUusoNCMj8JfGq8" target="_blank" class="btn-primary btn-full"
-              style="background: var(--navy-700); color: var(--ink-100);">
-              <span class="lang fr">Acheter la formation</span>
-              <span class="lang en">Buy the Training</span>
-            </a>
-          </div>
+<!-- SECTION OFFRES / BOUTONS DE PAIEMENT -->
+<section id="offres" class="section discord-section">
+<div class="wrap">
+<h2 class="lang fr">Passe à l'action</h2>
+<h2 class="lang en">Take Action</h2>
 
-          <!-- OFFRE VIP DISCORD -->
-          <div class="discord-card premium">
-            <div class="lang fr">
-              <h3>L'Accompagnement VIP</h3>
-              <p>La vraie difficulté, c'est de rester régulier tout seul devant ses graphiques. Je corrige tes erreurs
-                en direct.</p>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Visio chaque fin de semaine</strong> (Analyse)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Review stricte de tes trades</strong></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Recadrage Psychologique</strong> (Mindset)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> Communauté de traders mécaniques</li>
-              </ul>
-              <p class="price-tag">100€ <span>/ mois</span></p>
-            </div>
-            <div class="lang en">
-              <h3>VIP Coaching</h3>
-              <p>The real difficulty is staying consistent alone in front of your charts. I correct your mistakes live.
-              </p>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Weekly video call</strong> (Analysis)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Strict review of your trades</strong></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> <strong>Psychological framing</strong> (Mindset)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg> Community of mechanical traders</li>
-              </ul>
-              <p class="price-tag">100€ <span>/ month</span></p>
-            </div>
-            <a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank" class="btn-primary btn-full">
-              <span class="lang fr">Rejoindre le Discord</span>
-              <span class="lang en">Join the Discord</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+<p class="lang fr">Découvre les mécaniques exactes pour rentrer au scalpel et professionnalise ton exécution dès aujourd'hui.</p>
+<p class="lang en">Discover the exact mechanics for scalpel entries and professionalize your execution today.</p>
 
-    <section class="conclusion">
-      <div class="wrap">
-        <h2 class="lang fr">Pour conclure</h2>
-        <h2 class="lang en">To conclude</h2>
+<div class="pricing-grid">
+<!-- OFFRE FORMATION SEULE -->
+<div class="discord-card">
+<div class="lang fr">
+<h3>La Masterclass (Format PDF)</h3>
+<p>Le document complet, révélant la checklist exacte et les graphiques annotés de la stratégie.</p>
+<p class="price-tag">1 000€ <span>/ paiement unique</span></p>
+</div>
+<div class="lang en">
+<h3>The Masterclass (PDF Format)</h3>
+<p>The complete document, revealing the exact checklist and annotated charts of the strategy.</p>
+<p class="price-tag">1 000€ <span>/ one-time payment</span></p>
+</div>
+<a href="https://wise.com/pay/r/BUusoNCMj8JfGq8" target="_blank" class="btn-primary btn-full"
+style="background: var(--navy-700); color: var(--ink-100);">
+<span class="lang fr">Acheter la formation</span>
+<span class="lang en">Buy the Training</span>
+</a>
+</div>
 
-        <p class="lang fr">Le but, ce n'est pas de trader tous les jours - c'est de trader QUAND le setup est là. Si tu
-          es prêt à arrêter de bricoler et à exécuter avec précision, on se retrouve de l'autre côté.</p>
-        <p class="lang en">The goal is not to trade every day - it's to trade WHEN the setup is there. If you are ready
-          to stop guessing and execute with precision, I'll see you on the other side.</p>
+<!-- OFFRE VIP DISCORD -->
+<div class="discord-card premium">
+<div class="lang fr">
+<h3>L'Accompagnement VIP</h3>
+<p>La vraie difficulté, c'est de rester régulier tout seul devant ses graphiques. Je corrige tes erreurs
+en direct.</p>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Visio chaque fin de semaine</strong> (Analyse)</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Review stricte de tes trades</strong></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Recadrage Psychologique</strong> (Mindset)</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Communauté de traders mécaniques</li>
+</ul>
+<p class="price-tag">100€ <span>/ mois</span></p>
+</div>
+<div class="lang en">
+<h3>VIP Coaching</h3>
+<p>The real difficulty is staying consistent alone in front of your charts. I correct your mistakes live.</p>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Weekly video call</strong> (Analysis)</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Strict review of your trades</strong></li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Psychological framing</strong> (Mindset)</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--gold-400);vertical-align:middle;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Community of mechanical traders</li>
+</ul>
+<p class="price-tag">100€ <span>/ month</span></p>
+</div>
+<a href="https://wise.com/pay/r/xqgDO7TfYX1_-uc" target="_blank" class="btn-primary btn-full">
+<span class="lang fr">Rejoindre le Discord</span>
+<span class="lang en">Join the Discord</span>
+</a>
+</div>
+</div>
+</div>
+</section>
 
-        <p class="sign-off lang fr">À toi de jouer.</p>
-        <p class="sign-off lang en">Your move.</p>
-      </div>
-    </section>
+<section class="conclusion">
+<div class="wrap">
+<h2 class="lang fr">Pour conclure</h2>
+<h2 class="lang en">To conclude</h2>
 
-    <!-- SECTION MENTIONS LÉGALES -->
-    <section id="mentions-legales" class="section">
-      <div class="wrap">
-        <h2 class="lang fr">Mentions Légales &amp; Avertissement sur les Risques</h2>
-        <h2 class="lang en">Legal Notice &amp; Risk Disclaimer</h2>
+<p class="lang fr">Le but, ce n'est pas de trader tous les jours - c'est de trader QUAND le setup est là. Si tu
+es prêt à arrêter de bricoler et à exécuter avec précision, on se retrouve de l'autre côté.</p>
+<p class="lang en">The goal is not to trade every day - it's to trade WHEN the setup is there. If you are ready
+to stop guessing and execute with precision, I'll see you on the other side.</p>
 
-        <div class="legal-content lang fr">
-          <h4>1. Éditeur du site</h4>
-          <p>Le présent site "L'Arsenal Mécanique" est édité par M. Chakib (Trader indépendant &amp; Fondateur).</p>
+<p class="sign-off lang fr">À toi de jouer.</p>
+<p class="sign-off lang en">Your move.</p>
+</div>
+</section>
 
-          <h4>2. Propriété intellectuelle</h4>
-          <p>L'ensemble des contenus (textes, stratégies, graphiques et supports pédagogiques) est protégé par le droit d'auteur. Toute reproduction ou redistribution non autorisée est strictement interdite.</p>
+<!-- SECTION CONTACT -->
+<section id="contact" class="section">
+<div class="wrap">
+<h2 class="lang fr">Contact &amp; Support</h2>
+<h2 class="lang en">Contact &amp; Support</h2>
 
-          <h4>3. Avertissement sur les Risques (Trading &amp; Prop Firms)</h4>
-          <p>Le trading d'instruments financiers (Futures, Forex, Indices) comporte un <strong>niveau de risque très élevé</strong> et peut entraîner la perte intégrale du capital engagé. Les résultats et performances présentés sur ce site ne garantissent en aucun cas les performances futures.</p>
-          <p>Les contenus et formations proposés sont exclusivement à but <strong>éducatif et pédagogique</strong>. Ils ne constituent pas des conseils en investissement financier, ni des incitations à trader.</p>
+<p class="lang fr">Une question sur la formation ou l'accompagnement VIP ? Besoin d'informations complémentaires avant de vous lancer ? Contactez-moi directement.</p>
+<p class="lang en">Have a question about the Masterclass or VIP Coaching? Need more information before getting started? Feel free to reach out directly.</p>
 
-          <h4>4. Paiements &amp; Données personnelles</h4>
-          <p>Aucune donnée personnelle sensible n'est enregistrée à votre insu. Les transactions bancaires sont traitées de manière 100% sécurisée via nos partenaires bancaires certifiés (Wise / Stripe).</p>
-        </div>
+<div class="contact-card">
+<div class="contact-item">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<div>
+<strong>
+<span class="lang fr">Email Direct</span>
+<span class="lang en">Direct Email</span>
+</strong>
+<p style="margin:0;"><a href="mailto:contact.arsenalmecanique@gmail.com">contact.arsenalmecanique@gmail.com</a></p>
+</div>
+</div>
+<div class="contact-item">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+<div>
+<strong>
+<span class="lang fr">Discord Direct</span>
+<span class="lang en">Direct Discord</span>
+</strong>
+<p style="margin:0;">
+<a href="https://discord.com/users/tiff10" target="_blank" style="color: var(--gold-300); font-weight: 700;">
+<span class="lang fr">Ajouter sur Discord : tiff10</span>
+<span class="lang en">Add on Discord: tiff10</span>
+</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="legal-content lang en">
-          <h4>1. Site Publisher</h4>
-          <p>This website "L'Arsenal Mécanique" is published by M. Chakib (Independent Trader &amp; Founder).</p>
+<!-- SECTION MENTIONS LÉGALES -->
+<section id="mentions-legales" class="section">
+<div class="wrap">
+<h2 class="lang fr">Mentions Légales &amp; Avertissement sur les Risques</h2>
+<h2 class="lang en">Legal Notice &amp; Risk Disclaimer</h2>
 
-          <h4>2. Intellectual Property</h4>
-          <p>All content (texts, strategies, graphics, and training material) is protected under copyright law. Any unauthorized copy or redistribution is strictly prohibited.</p>
+<div class="legal-content lang fr">
+<h4>1. Éditeur du site</h4>
+<p>Le présent site "L'Arsenal Mécanique" est édité par M. Chakib (Trader indépendant &amp; Fondateur).</p>
 
-          <h4>3. Risk Disclaimer (Trading &amp; Prop Firms)</h4>
-          <p>Trading financial instruments (Futures, Forex, Indices) involves a <strong>high level of risk</strong> and can result in the complete loss of your capital. Past performance shown on this site does not guarantee future results.</p>
-          <p>All training material and content provided are strictly for <strong>educational and informational purposes</strong>. They do not constitute financial investment advice or trading recommendations.</p>
+<h4>2. Propriété intellectuelle</h4>
+<p>L'ensemble des contenus (textes, stratégies, graphiques et supports pédagogiques) est protégé par le droit d'auteur. Toute reproduction ou redistribution non autorisée est strictement interdite.</p>
 
-          <h4>4. Payments &amp; Privacy</h4>
-          <p>No personal data is collected without consent. All transactions are securely processed through certified third-party payment providers (Wise / Stripe).</p>
-        </div>
-      </div>
-    </section>
+<h4>3. Avertissement sur les Risques (Trading &amp; Prop Firms)</h4>
+<p>Le trading d'instruments financiers (Futures, Forex, Indices) comporte un <strong>niveau de risque très élevé</strong> et peut entraîner la perte intégrale du capital engagé. Les résultats et performances présentés sur ce site ne garantissent en aucun cas les performances futures.</p>
+<p>Les contenus et formations proposés sont exclusivement à but <strong>éducatif et pédagogique</strong>. Ils ne constituent pas des conseils en investissement financier, ni des incitations à trader.</p>
 
-  </main>
+<h4>4. Paiements &amp; Données personnelles</h4>
+<p>Aucune donnée personnelle sensible n'est enregistrée à votre insu. Les transactions bancaires sont traitées de manière 100% sécurisée via nos partenaires bancaires certifiés (Wise / Stripe).</p>
+</div>
 
-  <footer style="padding: 30px 0; border-top: 1px solid var(--navy-700); text-align: center; font-size: 0.85rem; color: var(--ink-400);">
-    <div class="wrap">
-      <p style="margin: 0;">&copy; 2026 L'Arsenal Mécanique by M.Chakib. Tous droits réservés.</p>
-    </div>
-  </footer>
+<div class="legal-content lang en">
+<h4>1. Site Publisher</h4>
+<p>This website "L'Arsenal Mécanique" is published by M. Chakib (Independent Trader &amp; Founder).</p>
 
-  <!-- SECTION CONTACT : placée sous le copyright -->
-  <section id="contact" class="section">
-    <div class="wrap">
-      <h2 class="lang fr">Contact &amp; Support</h2>
-      <h2 class="lang en">Contact &amp; Support</h2>
+<h4>2. Intellectual Property</h4>
+<p>All content (texts, strategies, graphics, and training material) is protected under copyright law. Any unauthorized copy or redistribution is strictly prohibited.</p>
 
-      <p class="lang fr">Une question sur la formation ou l'accompagnement VIP ? Besoin d'informations complémentaires avant de vous lancer ? Contactez-moi directement.</p>
-      <p class="lang en">Have a question about the Masterclass or VIP Coaching? Need more information before getting started? Feel free to reach out directly.</p>
+<h4>3. Risk Disclaimer (Trading &amp; Prop Firms)</h4>
+<p>Trading financial instruments (Futures, Forex, Indices) involves a <strong>high level of risk</strong> and can result in the complete loss of your capital. Past performance shown on this site does not guarantee future results.</p>
+<p>All training material and content provided are strictly for <strong>educational and informational purposes</strong>. They do not constitute financial investment advice or trading recommendations.</p>
 
-      <div class="contact-card">
-        <div class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          <div>
-            <strong><span class="lang fr">Email Direct</span><span class="lang en">Direct Email</span></strong>
-            <p style="margin:0;"><a href="mailto:contact.arsenalmecanique@gmail.com">contact.arsenalmecanique@gmail.com</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:var(--gold-400);flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          <div>
-            <strong><span class="lang fr">Discord Direct</span><span class="lang en">Direct Discord</span></strong>
-            <p style="margin:0;"><a href="https://discord.com/users/tiff10" target="_blank" rel="noopener" style="color: var(--gold-300); font-weight: 700;"><span class="lang fr">Ajouter sur Discord : tiff10</span><span class="lang en">Add on Discord: tiff10</span></a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<h4>4. Payments &amp; Privacy</h4>
+<p>No personal data is collected without consent. All transactions are securely processed through certified third-party payment providers (Wise / Stripe).</p>
+</div>
+</div>
+</section>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="">
-  </div>
+</main>
 
-  <button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top" class="scroll-top-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </button>
+<footer style="padding: 30px 0; border-top: 1px solid var(--navy-700); text-align: center; font-size: 0.85rem; color: var(--ink-400);">
+<div class="wrap">
+<p style="margin: 0;">&copy; 2026 L'Arsenal Mécanique by M.Chakib. Tous droits réservés.</p>
+</div>
+</footer>
+
+<button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top" class="scroll-top-btn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="18 15 12 9 6 15"></polyline>
+</svg>
+</button>
 
 </body>
-
 </html>
